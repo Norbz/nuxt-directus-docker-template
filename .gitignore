@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Deployment environment configurations (but keep examples)
+environments/.env.*
+!environments/.env.*.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build outputs
+dist/
+build/
+.output/
+.nuxt/
+
+# Except marketplace extension builds
+!api/extensions/.registry/**/dist/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database
+*.db
+*.sqlite
+pg-data
+
+uploads/
+backups*
+
+# Docker
+*.pid

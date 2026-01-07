@@ -1,0 +1,214 @@
+[
+  {
+    "dashboard": "08c0f655-021b-4e53-be82-f67f55565dde",
+    "name": null,
+    "icon": null,
+    "color": null,
+    "show_header": false,
+    "note": null,
+    "type": "list",
+    "position_x": 1,
+    "position_y": 1,
+    "width": 12,
+    "height": 6,
+    "options": {
+      "collection": "form_submissions",
+      "sortField": "timestamp"
+    },
+    "_syncId": "09617d43-8948-4d24-b52e-6fbdff96bea5"
+  },
+  {
+    "dashboard": "08c0f655-021b-4e53-be82-f67f55565dde",
+    "name": null,
+    "icon": null,
+    "color": null,
+    "show_header": false,
+    "note": null,
+    "type": "label",
+    "position_x": 1,
+    "position_y": 3,
+    "width": 36,
+    "height": 3,
+    "options": {
+      "text": "Form Dashboard"
+    },
+    "_syncId": "193ef44a-4635-4096-9ed2-6ad341ada286"
+  },
+  {
+    "dashboard": "08c0f655-021b-4e53-be82-f67f55565dde",
+    "name": "To",
+    "icon": "date_range",
+    "color": null,
+    "show_header": true,
+    "note": null,
+    "type": "variable",
+    "position_x": 19,
+    "position_y": 6,
+    "width": 18,
+    "height": 6,
+    "options": {
+      "field": "dateTo",
+      "type": "timestamp",
+      "inter": "datetime",
+      "defaultValue": "2025-01-01T12:00:00-05:00",
+      "options": {
+        "use24": false
+      }
+    },
+    "_syncId": "8fe58667-a4fa-4357-ad29-45794579ad76"
+  },
+  {
+    "dashboard": "08c0f655-021b-4e53-be82-f67f55565dde",
+    "name": null,
+    "icon": null,
+    "color": null,
+    "show_header": false,
+    "note": null,
+    "type": "time-series",
+    "position_x": 1,
+    "position_y": 33,
+    "width": 24,
+    "height": 17,
+    "options": {
+      "collection": "form_submissions",
+      "color": "#1255F3",
+      "function": "countDistinct",
+      "dateField": "timestamp",
+      "valueField": "id",
+      "range": "auto"
+    },
+    "_syncId": "98aeb2e6-6657-46fb-969b-f8d0d512fd9b"
+  },
+  {
+    "dashboard": "08c0f655-021b-4e53-be82-f67f55565dde",
+    "name": "Submissions Over Time",
+    "icon": null,
+    "color": null,
+    "show_header": true,
+    "note": null,
+    "type": "time-series",
+    "position_x": 1,
+    "position_y": 20,
+    "width": 36,
+    "height": 12,
+    "options": {
+      "collection": "form_submissions",
+      "precision": "day",
+      "function": "count",
+      "range": "auto",
+      "filter": {
+        "_and": [
+          {
+            "_and": [
+              {
+                "timestamp": {
+                  "_between": [
+                    "{{dateFrom}}",
+                    "{{dateTo}}"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "dateField": "timestamp",
+      "valueField": "id"
+    },
+    "_syncId": "a0679bbe-af93-4f1d-aea4-125d41338513"
+  },
+  {
+    "dashboard": "08c0f655-021b-4e53-be82-f67f55565dde",
+    "name": "Submissions - Last 30 Days",
+    "icon": null,
+    "color": null,
+    "show_header": true,
+    "note": null,
+    "type": "metric",
+    "position_x": 1,
+    "position_y": 12,
+    "width": 18,
+    "height": 8,
+    "options": {
+      "collection": "form_submissions",
+      "field": "id",
+      "function": "count",
+      "sortField": null,
+      "conditionalFormatting": null,
+      "filter": {
+        "_and": [
+          {
+            "timestamp": {
+              "_gt": "$NOW(-30d)"
+            }
+          }
+        ]
+      }
+    },
+    "_syncId": "c4d972be-761d-44ab-a92d-c60fd3e76651"
+  },
+  {
+    "dashboard": "08c0f655-021b-4e53-be82-f67f55565dde",
+    "name": "Submissions",
+    "icon": null,
+    "color": null,
+    "show_header": true,
+    "note": null,
+    "type": "list",
+    "position_x": 38,
+    "position_y": 3,
+    "width": 29,
+    "height": 29,
+    "options": {
+      "collection": "form_submissions",
+      "limit": 100,
+      "sortField": "id",
+      "linkToItem": true,
+      "displayTemplate": "{{timestamp}} • {{values}} • {{form}}"
+    },
+    "_syncId": "e1ade581-5a4e-4a0e-a984-492c0eff7434"
+  },
+  {
+    "dashboard": "08c0f655-021b-4e53-be82-f67f55565dde",
+    "name": "From",
+    "icon": "date_range",
+    "color": null,
+    "show_header": true,
+    "note": null,
+    "type": "variable",
+    "position_x": 1,
+    "position_y": 6,
+    "width": 18,
+    "height": 6,
+    "options": {
+      "field": "dateFrom",
+      "type": "timestamp",
+      "inter": "datetime",
+      "defaultValue": "2024-01-01T12:00:00-05:00",
+      "options": {
+        "use24": false
+      }
+    },
+    "_syncId": "e89755d9-4b7e-4427-b376-846d5cc04b20"
+  },
+  {
+    "dashboard": "08c0f655-021b-4e53-be82-f67f55565dde",
+    "name": "Submissions - Total",
+    "icon": null,
+    "color": null,
+    "show_header": true,
+    "note": null,
+    "type": "metric",
+    "position_x": 19,
+    "position_y": 12,
+    "width": 18,
+    "height": 8,
+    "options": {
+      "collection": "form_submissions",
+      "field": "id",
+      "function": "count",
+      "sortField": null
+    },
+    "_syncId": "fd551f5a-250c-4fed-9acb-2ac7dee521fc"
+  }
+]

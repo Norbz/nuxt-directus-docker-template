@@ -1,0 +1,252 @@
+# Restore a backup from GitHub Actions artifacts, can be used to migrate contents between environments.
+name: Restore Backup
+
+run-name: Restore ${{ inputs.target_environment }}${{ inputs.source_environment != inputs.target_environment && format(' from {0}', inputs.source_environment) || '' }} - ${{ inputs.backup_timestamp || 'latest' }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_environment:
+        description: "Target environment (where to restore TO)"
+        required: true
+        type: environment
+      source_environment:
+        description: "Source environment (where to restore FROM) - defaults to target environment"
+        required: false
+        type: environment
+      backup_timestamp:
+        description: "Backup timestamp (YYYYMMDD-HHMMSS) or leave empty for latest from source environment"
+        required: false
+        type: string
+      preserve_users:
+        description: "Preserve existing Directus users on target (do not overwrite with source users)"
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.target_environment }}
+    
+    permissions:
+      actions: read
+      contents: read
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set source environment
+        id: set_source
+        run: |
+          SOURCE_ENV="${{ inputs.source_environment }}"
+          if [ -z "$SOURCE_ENV" ]; then
+            SOURCE_ENV="${{ inputs.target_environment }}"
+          fi
+          echo "source_environment=$SOURCE_ENV" >> $GITHUB_OUTPUT
+          echo "[INFO] Source environment: $SOURCE_ENV"
+          echo "[INFO] Target environment: ${{ inputs.target_environment }}"
+      
+      - name: Find latest backup artifact if timestamp not specified
+        if: inputs.backup_timestamp == ''
+        id: find_latest
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          SOURCE_ENV="${{ steps.set_source.outputs.source_environment }}"
+          echo "[INFO] Searching for latest backup artifact for environment: $SOURCE_ENV"
+          
+          # Get list of all artifacts and filter for the source environment pattern
+          # The name parameter doesn't support wildcards, so we filter in jq
+          ARTIFACT_INFO=$(gh api \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/${{ github.repository }}/actions/artifacts?per_page=100" \
+            --jq ".artifacts | map(select(.name | startswith(\"backup-${SOURCE_ENV}-\"))) | sort_by(.created_at) | reverse | .[0]")
+          
+          if [ -z "$ARTIFACT_INFO" ] || [ "$ARTIFACT_INFO" = "null" ]; then
+            echo "[ERROR] No backup artifacts found for environment: $SOURCE_ENV"
+            echo "[DEBUG] Listing all available artifacts:"
+            gh api "/repos/${{ github.repository }}/actions/artifacts" --jq '.artifacts[].name' | head -20
+            exit 1
+          fi
+          
+          ARTIFACT_NAME=$(echo "$ARTIFACT_INFO" | jq -r '.name')
+          RUN_ID=$(echo "$ARTIFACT_INFO" | jq -r '.workflow_run.id')
+          echo "[INFO] Found latest backup artifact: $ARTIFACT_NAME"
+          echo "[INFO] From workflow run: $RUN_ID"
+          echo "artifact_name=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
+          echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
+          
+          # Extract timestamp from artifact name (format: backup-ENV-TIMESTAMP)
+          # Use [^-]+ to match environment name (non-dash chars) instead of greedy .*
+          TIMESTAMP=$(echo "$ARTIFACT_NAME" | sed 's/backup-[^-]*-\(.*\)/\1/')
+          echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
+          echo "[INFO] Backup timestamp: $TIMESTAMP"
+      
+      - name: Set artifact name for specific timestamp
+        if: inputs.backup_timestamp != ''
+        id: set_artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          SOURCE_ENV="${{ steps.set_source.outputs.source_environment }}"
+          ARTIFACT_NAME="backup-${SOURCE_ENV}-${{ inputs.backup_timestamp }}"
+          echo "[INFO] Using specified artifact: $ARTIFACT_NAME"
+          
+          # Find the workflow run ID for this specific artifact
+          ARTIFACT_INFO=$(gh api \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/${{ github.repository }}/actions/artifacts?per_page=100" \
+            --jq ".artifacts | map(select(.name == \"${ARTIFACT_NAME}\")) | .[0]")
+          
+          if [ -z "$ARTIFACT_INFO" ] || [ "$ARTIFACT_INFO" = "null" ]; then
+            echo "[ERROR] Artifact not found: $ARTIFACT_NAME"
+            exit 1
+          fi
+          
+          RUN_ID=$(echo "$ARTIFACT_INFO" | jq -r '.workflow_run.id')
+          echo "[INFO] From workflow run: $RUN_ID"
+          
+          echo "artifact_name=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
+          echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
+          echo "timestamp=${{ inputs.backup_timestamp }}" >> $GITHUB_OUTPUT
+      
+      - name: Download backup artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ steps.find_latest.outputs.artifact_name || steps.set_artifact.outputs.artifact_name }}
+          path: ./backup-artifacts
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ steps.find_latest.outputs.run_id || steps.set_artifact.outputs.run_id }}
+      
+      - name: Verify downloaded backup files
+        id: verify_backup
+        run: |
+          echo "[INFO] Downloaded backup files:"
+          ls -lh ./backup-artifacts/
+          
+          TIMESTAMP=${{ steps.find_latest.outputs.timestamp || steps.set_artifact.outputs.timestamp }}
+          echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
+          
+          # Verify required files exist
+          if [ "${{ inputs.preserve_users }}" = "true" ]; then
+            if [ ! -f "./backup-artifacts/db-content-backup-${TIMESTAMP}.sql" ]; then
+              echo "[ERROR] Content backup not found: db-content-backup-${TIMESTAMP}.sql"
+              exit 1
+            fi
+            echo "[INFO] Using content-only backup (preserving users)"
+          else
+            if [ ! -f "./backup-artifacts/db-backup-${TIMESTAMP}.sql" ]; then
+              echo "[ERROR] Full database backup not found: db-backup-${TIMESTAMP}.sql"
+              exit 1
+            fi
+            echo "[INFO] Using full backup (replacing users)"
+          fi
+          
+          if [ ! -f "./backup-artifacts/uploads-backup-${TIMESTAMP}.tar.gz" ]; then
+            echo "[ERROR] Uploads backup not found: uploads-backup-${TIMESTAMP}.tar.gz"
+            exit 1
+          fi
+          
+          if [ ! -f "./backup-artifacts/files-backup-${TIMESTAMP}.tar.gz" ]; then
+            echo "[ERROR] Files backup not found: files-backup-${TIMESTAMP}.tar.gz"
+            exit 1
+          fi
+          
+          echo "[INFO] All backup files verified successfully"
+      
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      
+      - name: Upload restore script to target server
+        run: |
+          echo "[INFO] Uploading restore script..."
+          scp -o StrictHostKeyChecking=no \
+            ./scripts/restore.sh\
+            ${{ vars.SSH_USER }}@${{ vars.SERVER_HOST }}:${{ vars.DEPLOY_PATH }}/scripts/
+      
+      - name: Upload backup files to target server
+        run: |
+          TIMESTAMP=${{ steps.verify_backup.outputs.timestamp }}
+          RESTORE_DIR="/tmp/restore-${TIMESTAMP}"
+          
+          echo "[INFO] Uploading backup files to target server..."
+          
+          # Create temporary restore directory
+          ssh -o StrictHostKeyChecking=no ${{ vars.SSH_USER }}@${{ vars.SERVER_HOST }} \
+            "mkdir -p ${RESTORE_DIR}"
+          
+          # Upload all backup files to /tmp
+          if [ "${{ inputs.preserve_users }}" = "true" ]; then
+            scp -o StrictHostKeyChecking=no \
+              ./backup-artifacts/db-content-backup-${TIMESTAMP}.sql \
+              ./backup-artifacts/uploads-backup-${TIMESTAMP}.tar.gz \
+              ./backup-artifacts/files-backup-${TIMESTAMP}.tar.gz \
+              ${{ vars.SSH_USER }}@${{ vars.SERVER_HOST }}:${RESTORE_DIR}/
+          else
+            scp -o StrictHostKeyChecking=no \
+              ./backup-artifacts/db-backup-${TIMESTAMP}.sql \
+              ./backup-artifacts/uploads-backup-${TIMESTAMP}.tar.gz \
+              ./backup-artifacts/files-backup-${TIMESTAMP}.tar.gz \
+              ${{ vars.SSH_USER }}@${{ vars.SERVER_HOST }}:${RESTORE_DIR}/
+          fi
+          
+          echo "[INFO] Backup files uploaded successfully to ${RESTORE_DIR}"
+      
+      - name: Restore project files on target server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.SERVER_HOST }}
+          username: ${{ vars.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ vars.DEPLOY_PATH }}
+            
+            TIMESTAMP=${{ steps.verify_backup.outputs.timestamp }}
+            RESTORE_DIR="/tmp/restore-${TIMESTAMP}"
+            
+            echo "[INFO] Restoring project files..."
+            tar -xzf "${RESTORE_DIR}/files-backup-${TIMESTAMP}.tar.gz"
+            echo "[INFO] Project files restored"
+      
+      - name: Run restore script on target server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.SERVER_HOST }}
+          username: ${{ vars.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ vars.DEPLOY_PATH }}
+            
+            TIMESTAMP=${{ steps.verify_backup.outputs.timestamp }}
+            RESTORE_DIR="/tmp/restore-${TIMESTAMP}"
+            
+            echo "[INFO] Restore Summary:"
+            echo "[INFO]   Source environment: ${{ steps.set_source.outputs.source_environment }}"
+            echo "[INFO]   Target environment: ${{ inputs.target_environment }}"
+            echo "[INFO]   Timestamp: $TIMESTAMP"
+            echo "[INFO]   Backup directory: $RESTORE_DIR"
+            echo "[INFO]   Preserve users: ${{ inputs.preserve_users }}"
+            
+            # Make script executable and run it
+            chmod +x scripts/restore.sh
+            if [ "${{ inputs.preserve_users }}" = "true" ]; then
+              echo "[INFO] Preserving existing users and tokens"
+              ./scripts/restore.sh "$TIMESTAMP" "$RESTORE_DIR" --preserve-users
+            else
+              echo "[INFO] Full restore - replacing all data including users"
+              ./scripts/restore.sh "$TIMESTAMP" "$RESTORE_DIR"
+            fi
+            
+            # Cleanup temporary restore directory
+            echo "[INFO] Cleaning up temporary files..."
+            rm -rf ${RESTORE_DIR}
+            
+            echo "[INFO] Restore workflow completed successfully"

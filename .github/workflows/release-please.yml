@@ -1,0 +1,32 @@
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+name: release-please
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          # this assumes that you have created a personal access token
+          # (PAT) and configured it as a GitHub action secret named
+          # `MY_RELEASE_PLEASE_TOKEN` (this secret name is not important).
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          target-branch: main
+      # - uses: actions/checkout@v4
+      # - name: Use Node 14
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 20
+      # - run: npm install
+      # - run: npm run build
+      # - run: gh release create 1.0.0 --repo https://github.com/Norbz/mdp-projects -notes-file ./CHANGELOG.md --prerelease --title "release"
+      #   env:
+      #     GH_TOKEN: ${{ github.token }}

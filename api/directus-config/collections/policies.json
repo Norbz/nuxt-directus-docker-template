@@ -1,0 +1,142 @@
+[
+  {
+    "name": "Administrator",
+    "icon": "verified",
+    "description": "$t:admin_description",
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": true,
+    "app_access": true,
+    "roles": [
+      {
+        "role": null,
+        "sort": 1
+      },
+      {
+        "role": "_sync_default_admin_role",
+        "sort": null
+      }
+    ],
+    "_syncId": "_sync_default_admin_policy"
+  },
+  {
+    "name": "$t:public_label",
+    "icon": "public",
+    "description": "$t:public_description",
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": false,
+    "roles": [
+      {
+        "role": null,
+        "sort": 1
+      },
+      {
+        "role": "4b6069fd-afe2-404a-82fd-f054f8181a91",
+        "sort": 1
+      },
+      {
+        "role": "094ef469-aacd-4c22-a385-038f2bf11f27",
+        "sort": 2
+      }
+    ],
+    "_syncId": "_sync_default_public_policy"
+  },
+  {
+    "name": "Content - Live Preview",
+    "icon": "preview",
+    "description": "Grants read access to all pages and posts. Used for Live Preview so you can preview draft content. Be careful not to expose tokens of users with this policy.",
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": false,
+    "roles": [
+      {
+        "role": "4b6069fd-afe2-404a-82fd-f054f8181a91",
+        "sort": 2
+      }
+    ],
+    "_syncId": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce"
+  },
+  {
+    "name": "Team - App Access",
+    "icon": "badge",
+    "description": "Grants Directus Studio access to team members",
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": true,
+    "roles": [
+      {
+        "role": "094ef469-aacd-4c22-a385-038f2bf11f27",
+        "sort": 3
+      },
+      {
+        "role": "fa84c203-cd0d-47b3-974e-894fb8d3611a",
+        "sort": 3
+      },
+      {
+        "role": "f76075e7-eeee-44e7-b7ba-f3e1c0cb33e6",
+        "sort": 3
+      }
+    ],
+    "_syncId": "077c4716-54c3-46b0-8331-47c20ac66c54"
+  },
+  {
+    "name": "Content - Manage",
+    "icon": "edit",
+    "description": "Grants ability to read and edit ALL content.",
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": false,
+    "roles": [
+      {
+        "role": "fa84c203-cd0d-47b3-974e-894fb8d3611a",
+        "sort": 1
+      },
+      {
+        "role": "f76075e7-eeee-44e7-b7ba-f3e1c0cb33e6",
+        "sort": 1
+      },
+      {
+        "role": "4b6069fd-afe2-404a-82fd-f054f8181a91",
+        "sort": 3
+      }
+    ],
+    "_syncId": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24"
+  },
+  {
+    "name": "Content - Self",
+    "icon": "self_improvement",
+    "description": "Grants user ability to ONLY edit their own content. Cannot publish content.",
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": false,
+    "roles": [
+      {
+        "role": "094ef469-aacd-4c22-a385-038f2bf11f27",
+        "sort": 1
+      }
+    ],
+    "_syncId": "64a95c3a-1585-4134-91b9-b6eebf355c1b"
+  },
+  {
+    "name": "Forms - Submission",
+    "icon": "smart_button",
+    "description": "Grants ability to create form submissions. Used in frontend.",
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": false,
+    "roles": [
+      {
+        "role": null,
+        "sort": 2
+      }
+    ],
+    "_syncId": "6c6a2446-b146-4958-a796-d46d6ea304d1"
+  }
+]

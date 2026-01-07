@@ -1,0 +1,39 @@
+name: Automatic Production Backup
+
+on:
+  schedule:
+    # Run every 5 minutes for testing (change back to '0 3 * * *' for production)
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-production-environment:
+    runs-on: ubuntu-latest
+    outputs:
+      env-exists: ${{ steps.check.outputs.env_exists }}
+    steps:
+      - name: Check if production environment exists
+        id: check
+        run: |
+          echo "[INFO] Checking if production environment exists..."
+          ENV_EXISTS=$(gh api repos/${{ github.repository }}/environments/production --jq '.name' 2>/dev/null || echo "")
+          if [ -z "$ENV_EXISTS" ]; then
+            echo "[ERROR] Production environment does not exist. Skipping backup."
+            echo "env_exists=false" >> $GITHUB_OUTPUT
+          else
+            echo "[INFO] Production environment exists. Proceeding with backup."
+            echo "env_exists=true" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  trigger-backup:
+    needs: check-production-environment
+    if: needs.check-production-environment.outputs.env-exists == 'true'
+    uses: ./.github/workflows/backup.yml
+    with:
+      environment: production
+    secrets: inherit

@@ -1,0 +1,150 @@
+name: Deploy to Server
+
+run-name: Deploy to ${{ inputs.environment || (github.event_name == 'release' && github.event.action == 'published' && 'staging' || 'staging') }}
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Deployment environment"
+        required: true
+        default: "production"
+        type: environment
+
+jobs:
+  backup:
+    uses: ./.github/workflows/backup.yml
+    with:
+      environment: ${{ inputs.environment || (github.event_name == 'release' && github.event.action == 'published' && 'staging' || 'staging') }}
+    secrets: inherit
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: backup
+    environment:
+      name: ${{ inputs.environment || (github.event_name == 'release' && github.event.action == 'published' && 'staging' || 'staging') }}
+      url: ${{ github.jobs.deploy.outputs.page_url || vars.FRONTEND_PUBLIC_URL || ''}}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+      - name: build project
+        run: sh build.sh
+      
+      - name: Create .env files from secrets
+        run: |
+          cat > api/.env << 'APIEOF'
+          SECRET=${{ secrets.DIRECTUS_SECRET }}
+          ADMIN_EMAIL=${{ secrets.DIRECTUS_ADMIN_EMAIL }}
+          ADMIN_PASSWORD=${{ secrets.DIRECTUS_ADMIN_PASSWORD }}
+          
+          DB_CLIENT=pg
+          DB_HOST=postgres
+          DB_PORT=5432
+          DB_DATABASE=${{ vars.DB_DATABASE }}
+          DB_USER=${{ vars.DB_USER }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          
+          PUBLIC_URL=${{ vars.API_PUBLIC_URL }}
+          FRONTEND_PUBLIC_URL=${{ vars.FRONTEND_PUBLIC_URL }}
+          VISUAL_EDITOR_TOKEN=${{ secrets.VISUAL_EDITOR_TOKEN }}
+          APIEOF
+          
+          cat > .env << 'ROOTEOF'
+          DIRECTUS_ADMIN_TOKEN=${{ secrets.DIRECTUS_ADMIN_TOKEN }}
+          FRONTEND_PUBLIC_URL=${{ vars.FRONTEND_PUBLIC_URL }}
+          API_PUBLIC_URL=${{ vars.API_PUBLIC_URL }}
+          API_PORT=${{ vars.API_PORT }}
+          FRONTEND_PORT=${{ vars.FRONTEND_PORT }}
+          DB_DATABASE=${{ vars.DB_DATABASE }}
+          DB_USER=${{ vars.DB_USER }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          ROOTEOF
+      
+      - name: Deploy files to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ vars.SERVER_HOST }}
+          username: ${{ vars.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: ".,!.git,!node_modules,!.nuxt,!.output,!api/database,!backups,!frontend/node_modules"
+          target: ${{ vars.DEPLOY_PATH }}
+          overwrite: true
+          rm: true
+      - name: Deploy and restart services
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.SERVER_HOST }}
+          username: ${{ vars.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ vars.DEPLOY_PATH }}
+            # Ensure database directory exists with correct permissions
+            mkdir -p api/database
+            chmod -R 775 api/database
+            # Pull latest images if needed (for postgres, redis, etc.)
+            docker compose pull postgres redis
+            # Rebuild and restart all services
+            docker compose up --build -d
+            # Show running containers
+            docker compose ps
+      
+      - name: Wait for services to be ready
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.SERVER_HOST }}
+          username: ${{ vars.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ vars.DEPLOY_PATH }}
+            echo "Waiting for services to be ready..."
+            sleep 5
+            # Check if directus is healthy
+            for i in {1..10}; do
+              if docker compose exec -T directus wget --no-verbose --tries=1 -O- http://127.0.0.1:8055/server/health 2>/dev/null | grep -q '"status":"ok"'; then
+                echo "Directus is ready!"
+                break
+              fi
+              echo "Waiting for Directus to be ready... ($i/10)"
+              sleep 5
+            done
+      
+      - name: Sync Directus schema
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.SERVER_HOST }}
+          username: ${{ vars.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ vars.DEPLOY_PATH }}
+            # Try to push Directus schema with admin token
+            echo "Pushing Directus schema with admin token..."
+            if ! docker compose exec -T directus npx --yes directus-sync push \
+              --directus-url http://localhost:8055 \
+              --directus-token "${{ secrets.DIRECTUS_ADMIN_TOKEN }}"; then
+              echo "Push failed, retrying with admin email/password..."
+              docker compose exec -T directus npx --yes directus-sync push \
+                --directus-url http://localhost:8055 \
+                --directus-email "${{ secrets.DIRECTUS_ADMIN_EMAIL }}" \
+                --directus-password "${{ secrets.DIRECTUS_ADMIN_PASSWORD }}"
+            fi
+      
+      - name: Cleanup old Docker images
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.SERVER_HOST }}
+          username: ${{ vars.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ vars.DEPLOY_PATH }}
+            # Clean up old images
+            docker image prune -f
+            # Show running containers
+            docker compose ps

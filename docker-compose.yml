@@ -1,0 +1,89 @@
+services:
+  postgres:
+    image: postgis/postgis:15-3.5-alpine
+    platform: linux/amd64
+    restart: unless-stopped
+    ports:
+      - "0:5432" # Bind to a random host port
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./api/.env
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_USER: ${DB_USER:-directus}
+      POSTGRES_DB: ${DB_DATABASE:-directus}
+    networks:
+      - project-network
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - '0:6379'
+    volumes:
+      - redis_data:/data
+    networks:
+      - project-network
+    command: redis-server --appendonly yes
+
+  directus:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "${API_PORT:-0}:8055"
+    volumes:
+      - directus_uploads:/directus/uploads
+      - ./api/extensions:/directus/extensions
+      - ./api/directus-config:/directus/directus-config
+      - ./api/directus-sync.config.cjs:/directus/directus-sync.config.cjs:ro
+    env_file:
+      - ./api/.env
+    networks:
+      - project-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 -O- http://127.0.0.1:8055/server/health | grep -q '\"status\":\"ok\"'"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    environment:
+      WEBSOCKETS_ENABLED: "true"
+      CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC: "'self' http://localhost:3000 http://127.0.0.1:3000 ${FRONTEND_PUBLIC_URL:-}"
+      CACHE_AUTO_PURGE: "true"
+      DATABASE_HOST: postgres # Ensure internal hostname is used
+      PUBLIC_URL: "/"
+    depends_on:
+      - postgres
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "${FRONTEND_PORT:-0}:3000"
+    environment:
+      - NUXT_DIRECTUS_URL=http://directus:8055
+      - NUXT_PUBLIC_DIRECTUS_URL=${API_PUBLIC_URL:-http://localhost:8055}
+      - NITRO_STORAGE_CACHE_DRIVER=redis
+      - NITRO_STORAGE_CACHE_URL=redis://redis:6379
+    depends_on:
+      directus:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - project-network
+
+networks:
+  project-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    name: ${COMPOSE_PROJECT_NAME:-}_postgres_data
+  redis_data:
+    name: ${COMPOSE_PROJECT_NAME:-}_redis_data
+  directus_uploads:
+    name: ${COMPOSE_PROJECT_NAME:-}_directus_uploads

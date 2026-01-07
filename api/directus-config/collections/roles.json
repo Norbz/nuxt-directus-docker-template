@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Administrator",
+    "icon": "verified",
+    "description": "$t:admin_description",
+    "parent": null,
+    "_syncId": "_sync_default_admin_role"
+  },
+  {
+    "name": "Writer",
+    "icon": "docs_add_on",
+    "description": "Role that can create new posts and edit their own posts.",
+    "parent": null,
+    "_syncId": "094ef469-aacd-4c22-a385-038f2bf11f27"
+  },
+  {
+    "name": "Visual Editor Client",
+    "icon": "preview",
+    "description": null,
+    "parent": null,
+    "_syncId": "4b6069fd-afe2-404a-82fd-f054f8181a91"
+  },
+  {
+    "name": "Editor",
+    "icon": "nest_wake_on_approach",
+    "description": "Role that has the ability to edit and publish all content.",
+    "parent": null,
+    "_syncId": "f76075e7-eeee-44e7-b7ba-f3e1c0cb33e6"
+  },
+  {
+    "name": "Content Admin",
+    "icon": "admin_panel_settings",
+    "description": "Role with full rights to edit all content. Useful for simple sites or those without publishing approval workflows.",
+    "parent": null,
+    "_syncId": "fa84c203-cd0d-47b3-974e-894fb8d3611a"
+  }
+]

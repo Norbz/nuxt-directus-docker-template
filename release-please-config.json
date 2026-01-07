@@ -1,0 +1,24 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "packages": {
+    ".": {
+      "changelog-path": "CHANGELOG.md",
+      "release-type": "node",
+      "changelog-sections": [
+        { "type": "feat", "section": "🚀 New Features", "hidden": false },
+        { "type": "feature", "section": "🚀 New Features", "hidden": false },
+        { "type": "enhance", "section": "💅 Enhancements", "hidden": false },
+        { "type": "fix", "section": "🔥 Bug Fixes", "hidden": false },
+        { "type": "perf", "section": "🏃 Performance Improvements", "hidden": false },
+        { "type": "docs", "section": "📚 Documentation", "hidden": false },
+        { "type": "style", "section": "🎨 Polish", "hidden": false },
+        { "type": "chore", "section": "⚙️ Chores", "hidden": false },
+        { "type": "refactor", "section": "⌨️ Code Refactoring", "hidden": false },
+        { "type": "ci", "section": "📦 CI Improvements", "hidden": true },
+        { "type": "build", "section": "🛠️ Build System", "hidden": true },
+        { "type": "revert", "section": "↩️ Reverts", "hidden": true },
+        { "type": "test", "section": "🧪 Automated Testing", "hidden": true }
+      ]
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "nuxt-directus-docker-template",
+  "version": "0.0.1",
+  "description": "Directus 11 backend with Nuxt 4 frontend",
+  "private": true,
+  "scripts": {
+    "install:frontend": "cd frontend && npm install",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:directus": "docker-compose up directus postgres redis",
+    "dev": "npm run dev:directus & npm run dev:frontend",
+    "dev:urls": "./scripts/show-dev-urls.sh",
+    "build:frontend": "cd frontend && npm run build",
+    "docker:up": "docker-compose up",
+    "docker:up:build": "docker-compose up --build",
+    "docker:down": "docker-compose down",
+    "docker:clean": "docker-compose down -v",
+    "directus:pull": "set -a && [ -f .env ] && . .env && docker compose exec -T directus npx --yes directus-sync pull --directus-url http://localhost:8055 --directus-token \"$DIRECTUS_ADMIN_TOKEN\"",
+    "directus:push": "set -a && [ -f .env ] && . .env && docker compose exec -T directus npx --yes directus-sync push --directus-url http://localhost:8055 --directus-token \"$DIRECTUS_ADMIN_TOKEN\"",
+    "db:backup": "set -a && [ -f api/.env ] && . api/.env && set +a && mkdir -p ./backups && docker compose exec -T postgres pg_dump -U \"${DB_USER:-directus}\" \"${DB_DATABASE:-directus}\" > ./backups/db-backup-$(date +%Y%m%d-%H%M%S).sql",
+    "db:restore": "set -a && [ -f api/.env ] && . api/.env && set +a && BACKUP_FILE=${BACKUP_FILE:-$(ls -t ./backups/db-backup-*.sql | head -1)} && docker compose exec -T postgres psql -U \"${DB_USER:-directus}\" \"${DB_DATABASE:-directus}\" < \"$BACKUP_FILE\"",
+    "db:restore:force": "set -a && [ -f api/.env ] && . api/.env && set +a && BACKUP_FILE=${BACKUP_FILE:-$(ls -t ./backups/db-backup-*.sql | head -1)} && docker compose exec -T postgres psql -U \"${DB_USER:-directus}\" postgres -c \"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '${DB_DATABASE:-directus}' AND pid != pg_backend_pid();\" && docker compose exec -T postgres dropdb -U \"${DB_USER:-directus}\" --if-exists \"${DB_DATABASE:-directus}\" && docker compose exec -T postgres createdb -U \"${DB_USER:-directus}\" \"${DB_DATABASE:-directus}\" && docker compose exec -T postgres psql -U \"${DB_USER:-directus}\" \"${DB_DATABASE:-directus}\" < \"$BACKUP_FILE\"",
+    "uploads:backup": "mkdir -p ./backups && BACKUP_FILE=./backups/uploads-backup-$(date +%Y%m%d-%H%M%S).tar.gz && echo \"Creating uploads backup: $BACKUP_FILE\" && docker run --rm -v ${COMPOSE_PROJECT_NAME:-nuxt-directus-docker-template}_directus_uploads:/data -v $(pwd)/backups:/backup alpine tar czf /backup/$(basename $BACKUP_FILE) -C /data . && echo \"✓ Backup created: $BACKUP_FILE\"",
+    "uploads:restore": "BACKUP_FILE=${BACKUP_FILE:-$(ls -t ./backups/uploads-backup-*.tar.gz | head -1)} && echo \"Restoring uploads from: $BACKUP_FILE\" && docker run --rm -v ${COMPOSE_PROJECT_NAME:-nuxt-directus-docker-template}_directus_uploads:/data -v $(pwd)/backups:/backup alpine sh -c 'rm -rf /data/* && tar xzf /backup/$(basename $BACKUP_FILE) -C /data' && echo \"✓ Uploads restored from: $BACKUP_FILE\"",
+    "gh:config:env": "./scripts/configure-gh-environment.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Norbz/nuxt-directus-docker-template.git"
+  },
+  "keywords": [
+    "directus",
+    "nuxt",
+    "cms"
+  ],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,142 @@
+name: Backup Database and Files
+
+run-name: Backup ${{ inputs.environment || 'production' }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to backup"
+        required: true
+        default: "production"
+        type: environment
+  workflow_call:
+    inputs:
+      environment:
+        description: "Environment to backup"
+        required: true
+        type: string
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment || 'production' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Upload backup script to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ vars.SERVER_HOST }}
+          username: ${{ vars.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "scripts/backup.sh"
+          target: ${{ vars.DEPLOY_PATH }}
+      
+      - name: Run backup script on server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.SERVER_HOST }}
+          username: ${{ vars.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ vars.DEPLOY_PATH }}
+            chmod +x scripts/backup.sh
+            ./scripts/backup.sh
+            
+            # Also create files backup for workflow (not needed locally)
+            if [ -f /tmp/latest-timestamp.txt ]; then
+              TIMESTAMP=$(cat /tmp/latest-timestamp.txt)
+              echo "[INFO] Creating files backup with timestamp: $TIMESTAMP"
+              tar -czf ./backups/files-backup-$TIMESTAMP.tar.gz \
+                --exclude='./backups' \
+                --exclude='./api/database' \
+                --exclude='./node_modules' \
+                --exclude='./frontend/node_modules' \
+                --exclude='./.git' \
+                .
+              
+              # Cleanup old backups (keep last 10)
+              echo "[INFO] Cleaning up old backups..."
+              ls -t ./backups/db-backup-*.sql | tail -n +11 | xargs -r rm
+              ls -t ./backups/uploads-backup-*.tar.gz | tail -n +11 | xargs -r rm
+              ls -t ./backups/files-backup-*.tar.gz | tail -n +11 | xargs -r rm
+              
+              echo "[INFO] Current backups:"
+              ls -lh ./backups/
+            fi
+      
+      - name: Prepare download directories
+        run: mkdir -p ./backup-artifacts
+      
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      
+      - name: Download timestamp file
+        run: |
+          echo "[DEBUG] Checking if timestamp file exists on remote..."
+          ssh -o StrictHostKeyChecking=no ${{ vars.SSH_USER }}@${{ vars.SERVER_HOST }} "ls -lh /tmp/latest-timestamp.txt"
+          
+          echo "[DEBUG] Downloading timestamp file..."
+          scp -o StrictHostKeyChecking=no ${{ vars.SSH_USER }}@${{ vars.SERVER_HOST }}:/tmp/latest-timestamp.txt ./backup-artifacts/
+          
+          echo "[DEBUG] Verifying download..."
+          ls -lh ./backup-artifacts/latest-timestamp.txt
+      
+      - name: Set timestamp variable
+        id: set_timestamp
+        run: |
+          if [ -f "./backup-artifacts/latest-timestamp.txt" ]; then
+            TIMESTAMP=$(cat ./backup-artifacts/latest-timestamp.txt | tr -d '\n\r' | xargs)
+            if [ -n "$TIMESTAMP" ]; then
+              echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
+              echo "[INFO] Backup timestamp: $TIMESTAMP"
+            else
+              echo "[INFO] No timestamp found - likely first deploy"
+            fi
+          else
+            echo "[INFO] Timestamp file not found - likely first deploy"
+          fi
+      
+      - name: Download database backup
+        if: steps.set_timestamp.outputs.timestamp != ''
+        run: |
+          echo "[DEBUG] Downloading database backup..."
+          scp -o StrictHostKeyChecking=no \
+            ${{ vars.SSH_USER }}@${{ vars.SERVER_HOST }}:${{ vars.DEPLOY_PATH }}/backups/db-backup-${{ steps.set_timestamp.outputs.timestamp }}.sql \
+            ./backup-artifacts/
+      
+      - name: Download uploads backup
+        if: steps.set_timestamp.outputs.timestamp != ''
+        run: |
+          echo "[DEBUG] Downloading uploads backup..."
+          scp -o StrictHostKeyChecking=no \
+            ${{ vars.SSH_USER }}@${{ vars.SERVER_HOST }}:${{ vars.DEPLOY_PATH }}/backups/uploads-backup-${{ steps.set_timestamp.outputs.timestamp }}.tar.gz \
+            ./backup-artifacts/
+      
+      - name: Download files backup
+        if: steps.set_timestamp.outputs.timestamp != ''
+        run: |
+          echo "[DEBUG] Downloading files backup..."
+          scp -o StrictHostKeyChecking=no \
+            ${{ vars.SSH_USER }}@${{ vars.SERVER_HOST }}:${{ vars.DEPLOY_PATH }}/backups/files-backup-${{ steps.set_timestamp.outputs.timestamp }}.tar.gz \
+            ./backup-artifacts/
+      
+      - name: List downloaded backups
+        if: steps.set_timestamp.outputs.timestamp != ''
+        run: |
+          echo "[INFO] Downloaded backups:"
+          ls -lh ./backup-artifacts/ || echo "No backups downloaded"
+      
+      - name: Upload backup artifacts
+        uses: actions/upload-artifact@v4
+        if: steps.set_timestamp.outputs.timestamp != ''
+        with:
+          name: backup-${{ inputs.environment || 'production' }}-${{ steps.set_timestamp.outputs.timestamp }}
+          path: ./backup-artifacts/
+          retention-days: 90
+          compression-level: 0

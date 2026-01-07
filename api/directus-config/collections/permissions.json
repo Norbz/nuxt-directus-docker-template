@@ -1,0 +1,2398 @@
+[
+  {
+    "collection": "block_button_group",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "181ff9cb-f8e8-4379-94af-24156f123cca"
+  },
+  {
+    "collection": "block_button",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "08648f64-337c-4525-a071-926271aaacfc"
+  },
+  {
+    "collection": "block_embed",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "41c8e5d0-62dc-477c-92f0-17458f31baef"
+  },
+  {
+    "collection": "block_form",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "73e454bb-0cc3-4214-8bec-ee1f967c5343"
+  },
+  {
+    "collection": "block_gallery_items",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "98a19b74-fd42-42f5-8b30-6e9c0ac914d4"
+  },
+  {
+    "collection": "block_gallery",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "98303b27-cfc4-4c87-bfb0-49748c59dc92"
+  },
+  {
+    "collection": "block_hero",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "ff769ab0-89e8-4cdf-81a2-05cb9f81df77"
+  },
+  {
+    "collection": "block_iframe",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "e63d6566-0175-4399-8af8-1d07bcfb4f7f"
+  },
+  {
+    "collection": "block_posts",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "c217a40f-4d15-4de3-87d3-af3fd657a972"
+  },
+  {
+    "collection": "block_pricing_cards",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "a6a6f273-46b2-49fd-9ed4-92ee340ac149"
+  },
+  {
+    "collection": "block_pricing",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "9c330490-8487-4325-933c-6f8ff427485a"
+  },
+  {
+    "collection": "block_richtext",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "e8ae5509-b2f4-4481-8509-443713cbcd54"
+  },
+  {
+    "collection": "blog_settings",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "7c86a975-a037-4bfd-b74b-2e830e175585"
+  },
+  {
+    "collection": "chat_config",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "50ef38bc-e4c8-43d7-9f6b-71b96650b894"
+  },
+  {
+    "collection": "directus_files",
+    "action": "read",
+    "permissions": {
+      "_and": [
+        {
+          "_or": [
+            {
+              "folder": {
+                "name": {
+                  "_contains": "Public"
+                }
+              }
+            },
+            {
+              "folder": {
+                "parent": {
+                  "name": {
+                    "_contains": "Public"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "8970e021-0d85-4a83-82e3-516c237d6a0c"
+  },
+  {
+    "collection": "directus_users",
+    "action": "read",
+    "permissions": {
+      "_and": [
+        {
+          "posts": {
+            "_nnull": true
+          }
+        }
+      ]
+    },
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "first_name",
+      "last_name",
+      "avatar",
+      "title",
+      "id"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "6f454839-70a9-45aa-88b3-f91644f1cabb"
+  },
+  {
+    "collection": "form_fields",
+    "action": "read",
+    "permissions": {
+      "_and": [
+        {
+          "form": {
+            "is_active": {
+              "_eq": true
+            }
+          }
+        }
+      ]
+    },
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "cdae9fa3-3256-4028-b617-d6fd3f0ea1c9"
+  },
+  {
+    "collection": "forms",
+    "action": "read",
+    "permissions": {
+      "_and": [
+        {
+          "is_active": {
+            "_eq": true
+          }
+        }
+      ]
+    },
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "id",
+      "sort",
+      "title",
+      "is_active",
+      "meta_tabs",
+      "meta_fields",
+      "fields",
+      "submit_label",
+      "on_success",
+      "success_message",
+      "success_redirect_url"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "1f627cb2-ce75-488a-b02f-a07004b25abe"
+  },
+  {
+    "collection": "globals",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "id",
+      "seo",
+      "url",
+      "title",
+      "tagline",
+      "description",
+      "social",
+      "og_image",
+      "twitter_image",
+      "social_links",
+      "contact",
+      "street_address",
+      "address_locality",
+      "address_region",
+      "postal_code",
+      "address_country",
+      "email",
+      "phone",
+      "routes",
+      "logo_on_dark_bg",
+      "logo_on_light_bg",
+      "theme",
+      "logo",
+      "favicon",
+      "logo_dark_mode",
+      "accent_color",
+      "notice-7-fv9g",
+      "divider_logo",
+      "divider_social"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "643b3269-abbf-4a91-8e08-8f2c39504db4"
+  },
+  {
+    "collection": "navigation_items",
+    "action": "read",
+    "permissions": {
+      "_and": [
+        {
+          "_or": [
+            {
+              "navigation": {
+                "is_active": {
+                  "_eq": true
+                }
+              }
+            },
+            {
+              "parent": {
+                "navigation": {
+                  "is_active": {
+                    "_eq": true
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "7033aa86-73fb-45a4-97f4-84fbe6373a05"
+  },
+  {
+    "collection": "navigation",
+    "action": "read",
+    "permissions": {
+      "_and": [
+        {
+          "is_active": {
+            "_eq": true
+          }
+        }
+      ]
+    },
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "7c166899-8aa0-4d80-bd3d-bfffd24eb84a"
+  },
+  {
+    "collection": "page_blocks",
+    "action": "read",
+    "permissions": {
+      "_and": [
+        {
+          "page": {
+            "status": {
+              "_eq": "published"
+            }
+          }
+        }
+      ]
+    },
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "272198f1-b040-402a-8072-fe962e265c1d"
+  },
+  {
+    "collection": "pages",
+    "action": "read",
+    "permissions": {
+      "_and": [
+        {
+          "status": {
+            "_eq": "published"
+          }
+        },
+        {
+          "published_at": {
+            "_lte": "$NOW"
+          }
+        }
+      ]
+    },
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "51095609-4eb6-4e47-b192-684d25a3ec78"
+  },
+  {
+    "collection": "posts",
+    "action": "read",
+    "permissions": {
+      "_and": [
+        {
+          "status": {
+            "_eq": "published"
+          }
+        },
+        {
+          "published_at": {
+            "_lte": "$NOW"
+          }
+        }
+      ]
+    },
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "991b8806-ca15-4463-99d9-dac0f50303d6"
+  },
+  {
+    "collection": "redirects",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "eec25815-c508-45a4-a27d-abd49c859098"
+  },
+  {
+    "collection": "block_button_group",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "0582b643-6467-4cb4-ab51-6d1b0559d0f5"
+  },
+  {
+    "collection": "block_button",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "01481c18-16a6-4805-8aab-f27cfc977507"
+  },
+  {
+    "collection": "block_embed",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "a1386f75-0bbc-4580-a345-91695f2013b8"
+  },
+  {
+    "collection": "block_form",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "86edad4d-6da3-42a1-9308-f479d473932f"
+  },
+  {
+    "collection": "block_gallery_items",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "7ea809db-abe2-4402-a59e-9806f571b14f"
+  },
+  {
+    "collection": "block_gallery",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "25bdb6c0-eada-44f6-bea4-9bf17e53badf"
+  },
+  {
+    "collection": "block_hero",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "060896ff-884e-4d2d-b782-1ccc052d9923"
+  },
+  {
+    "collection": "block_iframe",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "e678c04e-708b-4998-b4f9-3ddd7b522eaa"
+  },
+  {
+    "collection": "block_posts",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "1773057f-374c-45d7-96df-a915f0d75cd2"
+  },
+  {
+    "collection": "block_pricing_cards",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "7e456690-c439-4809-bd66-b866c9902ddf"
+  },
+  {
+    "collection": "block_pricing",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "fe845d26-e29b-41db-b808-3d279656edbc"
+  },
+  {
+    "collection": "block_richtext",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "a57f2940-4345-4021-be0b-229deec33c97"
+  },
+  {
+    "collection": "form_fields",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "5805f69f-9e61-49a0-a6b2-c84da870f048"
+  },
+  {
+    "collection": "form_submissions",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "32d7aa70-1e07-4526-bf9b-aaee9fa12b36"
+  },
+  {
+    "collection": "forms",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "bf7295e2-0b92-445c-8ad2-e594d2751c24"
+  },
+  {
+    "collection": "globals",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "58658505-9858-41fb-a174-4800b4312676"
+  },
+  {
+    "collection": "navigation_items",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "286d0eba-f3a8-4f31-8e9b-f8659aab4d74"
+  },
+  {
+    "collection": "navigation",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "f3187a88-9866-4494-b6e2-5e3660d1e207"
+  },
+  {
+    "collection": "page_blocks",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "ac4e1fc3-e851-46f7-8da9-0206d151be13"
+  },
+  {
+    "collection": "pages_translations",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "4d5c3f17-19ac-4a0c-a1f7-6846d41b5113"
+  },
+  {
+    "collection": "pages",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "5cd5d2df-a33c-467f-b9f2-cbb0947194fa"
+  },
+  {
+    "collection": "posts",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "b58e60b3-0c44-460c-8874-1b7223b1e7d4"
+  },
+  {
+    "collection": "redirects",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "03c90a64-f0d6-4b78-9dcf-f31a76e0d2ce",
+    "_syncId": "0625a774-c50d-4d92-a6cd-01879a751530"
+  },
+  {
+    "collection": "ai_prompts",
+    "action": "create",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "12963235-ebbb-4973-912a-b0ea49c1b146"
+  },
+  {
+    "collection": "ai_prompts",
+    "action": "delete",
+    "permissions": {
+      "_and": [
+        {
+          "user_created": {
+            "_eq": "$CURRENT_USER"
+          }
+        }
+      ]
+    },
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "01369ccf-edaf-4f5a-a950-ae10ab941a25"
+  },
+  {
+    "collection": "ai_prompts",
+    "action": "read",
+    "permissions": {
+      "_and": [
+        {
+          "_or": [
+            {
+              "user_created": {
+                "_eq": "$CURRENT_USER"
+              }
+            },
+            {
+              "status": {
+                "_eq": "published"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "9d495f4c-ce1e-4afe-8d6e-6e20c8fd5375"
+  },
+  {
+    "collection": "ai_prompts",
+    "action": "update",
+    "permissions": {
+      "_and": [
+        {
+          "user_created": {
+            "_eq": "$CURRENT_USER"
+          }
+        }
+      ]
+    },
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "6780e9d8-c4eb-4cc1-bca3-cf2a83dc1f6d"
+  },
+  {
+    "collection": "directus_dashboards",
+    "action": "create",
+    "permissions": {},
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "d1be347e-2865-4e7c-9916-47b2d14924d8"
+  },
+  {
+    "collection": "directus_dashboards",
+    "action": "delete",
+    "permissions": {},
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "7888d4d3-5835-4a24-984b-3a404dbb82ce"
+  },
+  {
+    "collection": "directus_dashboards",
+    "action": "read",
+    "permissions": {},
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "0643df52-4008-4cc2-95a6-4b655b5fba22"
+  },
+  {
+    "collection": "directus_dashboards",
+    "action": "update",
+    "permissions": {},
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "a4af15df-85e5-4353-be37-785193d98f88"
+  },
+  {
+    "collection": "directus_files",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "51011bc9-a51d-4399-95e3-e7bee61a002c"
+  },
+  {
+    "collection": "directus_flows",
+    "action": "read",
+    "permissions": {
+      "trigger": {
+        "_eq": "manual"
+      }
+    },
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "id",
+      "status",
+      "name",
+      "icon",
+      "color",
+      "options",
+      "trigger"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "94633963-adfa-46c7-ad28-c319302c64a6"
+  },
+  {
+    "collection": "directus_folders",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "0ea0435f-73d0-4faa-b772-e321a32f0f4e"
+  },
+  {
+    "collection": "directus_panels",
+    "action": "create",
+    "permissions": {},
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "28e8cca1-a77c-48b6-82df-5ceac6123cd2"
+  },
+  {
+    "collection": "directus_panels",
+    "action": "delete",
+    "permissions": {},
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "2a4bb959-d393-4ee5-bd8c-cbeb5aac0968"
+  },
+  {
+    "collection": "directus_panels",
+    "action": "read",
+    "permissions": {},
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "5091961d-2f29-4670-9892-004a90130cbc"
+  },
+  {
+    "collection": "directus_panels",
+    "action": "update",
+    "permissions": {},
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "74bdda52-4ce6-4f5b-9b8d-ae1ed32966ee"
+  },
+  {
+    "collection": "directus_roles",
+    "action": "read",
+    "permissions": {},
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "bdaf6f84-e078-46dc-b713-5e0c3489362a"
+  },
+  {
+    "collection": "directus_shares",
+    "action": "create",
+    "permissions": {},
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "f310dcae-b8d3-4f40-83ee-f40de770b62c"
+  },
+  {
+    "collection": "directus_shares",
+    "action": "delete",
+    "permissions": {
+      "user_created": {
+        "_eq": "$CURRENT_USER"
+      }
+    },
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "cb98984f-47e8-4615-a6a1-758cb37161ef"
+  },
+  {
+    "collection": "directus_shares",
+    "action": "read",
+    "permissions": {
+      "_or": [
+        {
+          "role": {
+            "_eq": "$CURRENT_ROLE"
+          }
+        },
+        {
+          "role": {
+            "_null": true
+          }
+        }
+      ]
+    },
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "f6906d04-c9e3-478b-906d-e60d0a26c84e"
+  },
+  {
+    "collection": "directus_shares",
+    "action": "update",
+    "permissions": {
+      "user_created": {
+        "_eq": "$CURRENT_USER"
+      }
+    },
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "277b7d17-6444-44fb-8c91-a9eef41e6235"
+  },
+  {
+    "collection": "directus_users",
+    "action": "read",
+    "permissions": {},
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "cb2d6ab3-93bb-4211-9bdb-dd3fa6127195"
+  },
+  {
+    "collection": "directus_users",
+    "action": "update",
+    "permissions": {
+      "id": {
+        "_eq": "$CURRENT_USER"
+      }
+    },
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "first_name",
+      "last_name",
+      "email",
+      "password",
+      "location",
+      "title",
+      "description",
+      "avatar",
+      "language",
+      "appearance",
+      "theme_light",
+      "theme_dark",
+      "theme_light_overrides",
+      "theme_dark_overrides",
+      "tfa_secret"
+    ],
+    "policy": "077c4716-54c3-46b0-8331-47c20ac66c54",
+    "_syncId": "60543f75-b272-4c63-8e1c-f9a3a04f3c1b"
+  },
+  {
+    "collection": "block_button_group",
+    "action": "create",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "f245fdec-72ce-4886-9314-9a0fa5d05410"
+  },
+  {
+    "collection": "block_button_group",
+    "action": "delete",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "bbeab151-e184-4494-a780-481be1e04b9d"
+  },
+  {
+    "collection": "block_button_group",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "d1e99bc7-e070-4028-a1ee-0d92d860da79"
+  },
+  {
+    "collection": "block_button_group",
+    "action": "update",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "38ee4e87-b35b-4913-9195-de48b3b397a9"
+  },
+  {
+    "collection": "block_button",
+    "action": "create",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "4e04eda9-c2c6-4e28-8867-39bfe91a9471"
+  },
+  {
+    "collection": "block_button",
+    "action": "delete",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "6b64b0ce-37d6-465a-b34a-acd786b9ab0a"
+  },
+  {
+    "collection": "block_button",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "a868d4f2-9506-4427-8669-4f0e78f426a1"
+  },
+  {
+    "collection": "block_button",
+    "action": "update",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "62b1704c-8359-42a9-8363-4a52548bc725"
+  },
+  {
+    "collection": "block_form",
+    "action": "create",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "7bf54ace-9f9b-4771-97be-0c46bd05e46e"
+  },
+  {
+    "collection": "block_form",
+    "action": "delete",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "ce78919e-62fc-4ae0-abfd-0dca8cc746c9"
+  },
+  {
+    "collection": "block_form",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "9143604a-5cba-4456-bd97-8bfcabef3011"
+  },
+  {
+    "collection": "block_form",
+    "action": "update",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "d1392da4-1ea3-4c81-bc06-c97ec9283728"
+  },
+  {
+    "collection": "block_gallery_items",
+    "action": "create",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "e5638540-9669-4754-b62e-e819af986263"
+  },
+  {
+    "collection": "block_gallery_items",
+    "action": "delete",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "1f493485-4980-402a-8551-7f8a4214fbfe"
+  },
+  {
+    "collection": "block_gallery_items",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "78c8291f-578b-498f-aa23-b03ee5bea0b4"
+  },
+  {
+    "collection": "block_gallery_items",
+    "action": "update",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "63707655-b76e-4042-937a-5888802b1503"
+  },
+  {
+    "collection": "block_gallery",
+    "action": "create",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "128b25c9-9934-4d48-8326-2248ea2cc18b"
+  },
+  {
+    "collection": "block_gallery",
+    "action": "delete",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "d7f03652-209d-4e8e-b627-57b4bb534512"
+  },
+  {
+    "collection": "block_gallery",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "afaf2969-0bbe-44ff-8251-6ef2acceb152"
+  },
+  {
+    "collection": "block_gallery",
+    "action": "update",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "54af9166-2e23-4a09-b7c1-b937623bb136"
+  },
+  {
+    "collection": "block_hero",
+    "action": "create",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "c5d3a71d-51b6-4b9e-acc2-2d215b711ca6"
+  },
+  {
+    "collection": "block_hero",
+    "action": "delete",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "7ac5ab84-94bd-4b9f-b4fe-fb8f23cf5340"
+  },
+  {
+    "collection": "block_hero",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "56066913-138b-4a01-a846-f2927991fcbb"
+  },
+  {
+    "collection": "block_hero",
+    "action": "update",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "20fbb41f-ead0-4bd2-a25e-95249abe6922"
+  },
+  {
+    "collection": "block_posts",
+    "action": "create",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "7b448f4e-56bf-4005-95a6-4a8a74486108"
+  },
+  {
+    "collection": "block_posts",
+    "action": "delete",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "9cf0869b-3901-46ba-96d0-5f44fee9672d"
+  },
+  {
+    "collection": "block_posts",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "91c55e3e-4dc7-4778-bbde-52cd110ab403"
+  },
+  {
+    "collection": "block_posts",
+    "action": "update",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "a0d9484d-f646-42a4-81e2-741903b50223"
+  },
+  {
+    "collection": "block_pricing_cards",
+    "action": "create",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "0e3a3469-d023-4422-87b8-08c8d3d44192"
+  },
+  {
+    "collection": "block_pricing_cards",
+    "action": "delete",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "aafdc11d-838c-45b4-aab4-2c2db1f07be9"
+  },
+  {
+    "collection": "block_pricing_cards",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "f5581f3b-a4c1-4fb7-bc89-c78a26f955b8"
+  },
+  {
+    "collection": "block_pricing_cards",
+    "action": "update",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "86f28c1d-6b63-448b-8dfc-2fb337d05588"
+  },
+  {
+    "collection": "block_pricing",
+    "action": "create",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "2171f14b-747b-489b-8864-643b31a69557"
+  },
+  {
+    "collection": "block_pricing",
+    "action": "delete",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "b9ce8047-7378-4404-b917-aa5212c7c1fc"
+  },
+  {
+    "collection": "block_pricing",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "349b513f-32d9-4cd0-bf50-c486c110d474"
+  },
+  {
+    "collection": "block_pricing",
+    "action": "update",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "81f315c6-098e-4a24-86d2-696cef308ebd"
+  },
+  {
+    "collection": "block_richtext",
+    "action": "create",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "5503d9c2-5ba9-474d-82d3-58e76e9dc46d"
+  },
+  {
+    "collection": "block_richtext",
+    "action": "delete",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "936e0d60-816a-454c-b1b4-7792ebe06888"
+  },
+  {
+    "collection": "block_richtext",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "bb9c3fea-4865-477d-9615-0179b5d08143"
+  },
+  {
+    "collection": "block_richtext",
+    "action": "update",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "d6654c12-f8d4-41c9-963a-08dd85610a84"
+  },
+  {
+    "collection": "blog_settings",
+    "action": "create",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "7e70f2b7-a695-4be8-98f4-180a4e0f689f"
+  },
+  {
+    "collection": "blog_settings",
+    "action": "delete",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "9b3cc833-c6ce-41d0-aaa6-bb4f53eafe44"
+  },
+  {
+    "collection": "blog_settings",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "817f4c7b-0752-49e5-9ffa-b46b9745ac00"
+  },
+  {
+    "collection": "blog_settings",
+    "action": "update",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "89f1e03d-1609-4539-8c20-a53ba5de6c59"
+  },
+  {
+    "collection": "directus_files",
+    "action": "create",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "1b857eba-e261-48ab-90df-0c992c29f1fa"
+  },
+  {
+    "collection": "directus_files",
+    "action": "delete",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "adcd0edb-79c7-4e0d-af3b-d74770d2144f"
+  },
+  {
+    "collection": "directus_files",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "e6e0e5e7-fe93-4ce0-abac-a59e6ec43d38"
+  },
+  {
+    "collection": "directus_files",
+    "action": "update",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "39b78fe2-347b-434b-b5a5-bc2d0e190bfa"
+  },
+  {
+    "collection": "directus_folders",
+    "action": "create",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "a1bc79f0-ffa7-44f2-adee-60d785552ba1"
+  },
+  {
+    "collection": "directus_folders",
+    "action": "delete",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "2c970146-3a13-4001-898d-5b1c0e256e39"
+  },
+  {
+    "collection": "directus_folders",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "6913fa7e-f214-4ec5-98a4-dadb8dff2dae"
+  },
+  {
+    "collection": "directus_folders",
+    "action": "update",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "e819383b-8b10-4409-8e5e-5d19defdd193"
+  },
+  {
+    "collection": "form_fields",
+    "action": "create",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "fb5e4f73-f846-4300-8eaa-d9dc33de0884"
+  },
+  {
+    "collection": "form_fields",
+    "action": "delete",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "77c9d0db-29a6-4c24-8530-3e7837f443db"
+  },
+  {
+    "collection": "form_fields",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "95182244-e9fe-4bbd-b475-d9bb68fef64e"
+  },
+  {
+    "collection": "form_fields",
+    "action": "update",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "0bfc819f-973a-42db-b796-69391aea56ff"
+  },
+  {
+    "collection": "form_submission_values",
+    "action": "create",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "ef654f35-cce9-453c-8bbb-7f0c032442ae"
+  },
+  {
+    "collection": "form_submission_values",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "3909a7d2-b101-4e06-bca9-44adf8782a7b"
+  },
+  {
+    "collection": "form_submissions",
+    "action": "create",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "32c0413b-097a-453c-9eff-70773f377b63"
+  },
+  {
+    "collection": "form_submissions",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "5771f8a3-636b-4c00-a48b-49be40dff484"
+  },
+  {
+    "collection": "forms",
+    "action": "create",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "7757492e-993d-491b-b12b-9de168c1a245"
+  },
+  {
+    "collection": "forms",
+    "action": "delete",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "f2e96ace-aec6-48c5-bc4e-c22088d09a65"
+  },
+  {
+    "collection": "forms",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "3133d087-bb0e-42fb-8c64-ef60d51762ea"
+  },
+  {
+    "collection": "forms",
+    "action": "update",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "226b32c9-f236-4454-a144-e554b72c529e"
+  },
+  {
+    "collection": "globals",
+    "action": "create",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "id",
+      "title",
+      "url",
+      "divider_logo",
+      "logo",
+      "favicon",
+      "tagline",
+      "description",
+      "divider_social",
+      "social_links",
+      "logo_dark_mode",
+      "accent_color",
+      "notice-7-fv9g"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "b8bc02ec-b68f-4a62-a5e8-bdf7e1312e37"
+  },
+  {
+    "collection": "globals",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "id",
+      "title",
+      "url",
+      "divider_logo",
+      "logo",
+      "favicon",
+      "tagline",
+      "description",
+      "divider_social",
+      "social_links",
+      "logo_dark_mode",
+      "accent_color",
+      "notice-7-fv9g"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "f5d040d3-4dc4-4c81-af6e-acc55b62cab8"
+  },
+  {
+    "collection": "globals",
+    "action": "update",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "id",
+      "title",
+      "url",
+      "divider_logo",
+      "logo",
+      "favicon",
+      "tagline",
+      "description",
+      "divider_social",
+      "social_links",
+      "logo_dark_mode",
+      "notice-7-fv9g",
+      "accent_color"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "2de6169e-c11f-4f5e-be86-4ec7bb74e293"
+  },
+  {
+    "collection": "navigation_items",
+    "action": "create",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "2d276afd-4b97-49f8-a8a9-3f65dba8f590"
+  },
+  {
+    "collection": "navigation_items",
+    "action": "delete",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "02ca0782-9d2f-4418-b541-d39f02bb3cb6"
+  },
+  {
+    "collection": "navigation_items",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "1dc9295a-cec9-4deb-b581-d05550485dcc"
+  },
+  {
+    "collection": "navigation_items",
+    "action": "update",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "3ad7c5ef-03cc-49ea-b416-49c26ba63fc5"
+  },
+  {
+    "collection": "navigation",
+    "action": "create",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "b81fcf98-1a54-44f9-bcab-c9c71873f918"
+  },
+  {
+    "collection": "navigation",
+    "action": "delete",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "222557be-8ecb-46ef-92ff-7fba81e4599f"
+  },
+  {
+    "collection": "navigation",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "b75b8c2c-c6e7-457d-b13b-727fd4b0cbac"
+  },
+  {
+    "collection": "navigation",
+    "action": "update",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "c90a19b2-c893-41db-8992-1172cbf5a1cc"
+  },
+  {
+    "collection": "page_blocks",
+    "action": "create",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "edade4b1-a27e-417b-a73b-3cd729e790f3"
+  },
+  {
+    "collection": "page_blocks",
+    "action": "delete",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "6f8562d1-4068-4bd4-b22a-bb843cc39851"
+  },
+  {
+    "collection": "page_blocks",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "b77fc461-ed35-4894-9e1d-8cdd3d9a4cc2"
+  },
+  {
+    "collection": "page_blocks",
+    "action": "update",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "e85026f7-9928-4ea1-aece-3629201a3f18"
+  },
+  {
+    "collection": "pages",
+    "action": "create",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "71f76867-27bb-4353-a67f-7c4f2b6fd9d0"
+  },
+  {
+    "collection": "pages",
+    "action": "delete",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "6375c4d2-52a6-496e-9553-5637542e4d12"
+  },
+  {
+    "collection": "pages",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "fa0df637-a064-40c5-bf27-60f766c345dd"
+  },
+  {
+    "collection": "pages",
+    "action": "update",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "7667f9c3-37a0-45b0-aaec-a67d97a7a215"
+  },
+  {
+    "collection": "posts",
+    "action": "create",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "715e820c-edb2-4c63-9e7e-8a43bf29a4a7"
+  },
+  {
+    "collection": "posts",
+    "action": "delete",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "735d5a78-d5e4-43f0-bf98-e9fdcf66cfee"
+  },
+  {
+    "collection": "posts",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "7ff4f316-4ea6-4351-8024-9c7db0c81935"
+  },
+  {
+    "collection": "posts",
+    "action": "update",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "5693a99c-81ff-48a1-804a-41bf7e98b9eb"
+  },
+  {
+    "collection": "projects_settings",
+    "action": "read",
+    "permissions": {},
+    "validation": {},
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "3c990e1d-38a1-4c39-a7e0-46c6afc0ee24",
+    "_syncId": "d2626475-daa8-4248-bc51-7351395560da"
+  },
+  {
+    "collection": "directus_files",
+    "action": "create",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "64a95c3a-1585-4134-91b9-b6eebf355c1b",
+    "_syncId": "da7035f1-10d5-4332-8864-236516bf8eae"
+  },
+  {
+    "collection": "directus_files",
+    "action": "delete",
+    "permissions": {
+      "_and": [
+        {
+          "uploaded_by": {
+            "_eq": "$CURRENT_USER"
+          }
+        }
+      ]
+    },
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "64a95c3a-1585-4134-91b9-b6eebf355c1b",
+    "_syncId": "bff8a54b-3703-4a77-b2e5-d78cfb5fc8c7"
+  },
+  {
+    "collection": "directus_files",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "64a95c3a-1585-4134-91b9-b6eebf355c1b",
+    "_syncId": "1fd0cf01-4f51-471b-a4ca-8a628da733b2"
+  },
+  {
+    "collection": "directus_files",
+    "action": "update",
+    "permissions": {
+      "_and": [
+        {
+          "uploaded_by": {
+            "_eq": "$CURRENT_USER"
+          }
+        }
+      ]
+    },
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "64a95c3a-1585-4134-91b9-b6eebf355c1b",
+    "_syncId": "f2927509-b694-46a8-bd29-20f5f5818255"
+  },
+  {
+    "collection": "posts",
+    "action": "create",
+    "permissions": null,
+    "validation": {
+      "_and": [
+        {
+          "status": {
+            "_neq": "published"
+          }
+        }
+      ]
+    },
+    "presets": {
+      "author": "$CURRENT_USER"
+    },
+    "fields": [
+      "*"
+    ],
+    "policy": "64a95c3a-1585-4134-91b9-b6eebf355c1b",
+    "_syncId": "60715743-ac2e-4986-9112-d7d9a70cd145"
+  },
+  {
+    "collection": "posts",
+    "action": "read",
+    "permissions": {
+      "_and": [
+        {
+          "author": {
+            "_eq": "$CURRENT_USER"
+          }
+        }
+      ]
+    },
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "64a95c3a-1585-4134-91b9-b6eebf355c1b",
+    "_syncId": "0289b9d1-f054-4546-a712-64e7f4b28010"
+  },
+  {
+    "collection": "posts",
+    "action": "update",
+    "permissions": {
+      "_and": [
+        {
+          "author": {
+            "_eq": "$CURRENT_USER"
+          }
+        }
+      ]
+    },
+    "validation": {
+      "_and": [
+        {
+          "status": {
+            "_neq": "published"
+          }
+        }
+      ]
+    },
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "64a95c3a-1585-4134-91b9-b6eebf355c1b",
+    "_syncId": "2df8310c-934a-4603-a308-87d8a20f2f8e"
+  },
+  {
+    "collection": "directus_files",
+    "action": "create",
+    "permissions": null,
+    "validation": {
+      "_and": [
+        {
+          "filesize": {
+            "_lte": "5000000"
+          }
+        }
+      ]
+    },
+    "presets": {
+      "folder": "e6308546-92fb-4b10-b586-eefaf1d97f7f"
+    },
+    "fields": [
+      "*"
+    ],
+    "policy": "6c6a2446-b146-4958-a796-d46d6ea304d1",
+    "_syncId": "9521a972-b9c5-4a1a-9f4e-cfeb0b22c1cc"
+  },
+  {
+    "collection": "directus_files",
+    "action": "read",
+    "permissions": {
+      "_and": [
+        {
+          "folder": {
+            "_eq": "e6308546-92fb-4b10-b586-eefaf1d97f7f"
+          }
+        }
+      ]
+    },
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "id"
+    ],
+    "policy": "6c6a2446-b146-4958-a796-d46d6ea304d1",
+    "_syncId": "b737fa73-3513-4dea-a4b0-ed12a96dbf52"
+  },
+  {
+    "collection": "form_submission_values",
+    "action": "create",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "6c6a2446-b146-4958-a796-d46d6ea304d1",
+    "_syncId": "6a731fd4-e15c-4d9c-a8ab-588b51bf8836"
+  },
+  {
+    "collection": "form_submission_values",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "id"
+    ],
+    "policy": "6c6a2446-b146-4958-a796-d46d6ea304d1",
+    "_syncId": "8f9394ca-bc42-4d07-966b-49bda773c404"
+  },
+  {
+    "collection": "form_submissions",
+    "action": "create",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "6c6a2446-b146-4958-a796-d46d6ea304d1",
+    "_syncId": "9368e41d-6c49-4acd-a55f-91303777715a"
+  },
+  {
+    "collection": "form_submissions",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "id"
+    ],
+    "policy": "6c6a2446-b146-4958-a796-d46d6ea304d1",
+    "_syncId": "30a8f422-c2dd-488e-85d8-e12900b871a2"
+  }
+]

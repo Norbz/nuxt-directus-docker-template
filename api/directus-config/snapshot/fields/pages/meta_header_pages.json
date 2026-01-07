@@ -1,0 +1,59 @@
+{
+  "collection": "pages",
+  "field": "meta_header_pages",
+  "type": "alias",
+  "meta": {
+    "collection": "pages",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_header_pages",
+    "group": null,
+    "hidden": false,
+    "interface": "super-header",
+    "note": null,
+    "options": {
+      "actions": [
+        {
+          "actionType": "link",
+          "icon": "arrow_outward",
+          "label": "Voir sur le site web",
+          "type": "normal",
+          "url": "http://localhost:3000{{permalink}}"
+        },
+        {
+          "actionType": "link",
+          "icon": "edit",
+          "label": "Ouvrir dans l’éditeur visuel",
+          "type": "normal",
+          "url": "/admin/visual/http://localhost:3000{{permalink}}?visual-editing=true"
+        },
+        {
+          "actionType": "flow",
+          "flow": {
+            "collection": "directus_flows",
+            "key": "a23110e1-700b-41b8-9f9e-ca0998b84a76"
+          },
+          "icon": "copy_all",
+          "label": "Dupliquer la page",
+          "type": "normal"
+        }
+      ],
+      "help": "<h2>Créer et gérer des pages</h2><p>Les pages sont la base de votre site web, où vous combinez différents blocs de contenu pour créer des mises en page attrayantes. Chaque page peut être construite avec un mélange de blocs comme des sections Héros, du texte enrichi, des formulaires, et plus encore.</p><h3>Paramètres de la page</h3><h4>Titre</h4><p>Le titre de la page apparaît dans les onglets du navigateur et les résultats de recherche. Rendez-le clair et descriptif du contenu de la page. C’est ce que les visiteurs verront lorsqu’ils mettront votre page en favori ou la partageront sur les réseaux sociaux.</p><h4>URL (Permalien)</h4><ul><li>Commence toujours par une barre oblique (/)</li><li>Utilisez des mots simples en minuscules séparés par des tirets</li><li>Gardez-le court mais descriptif</li><li>Exemples :<ul><li>/a-propos</li><li>/contact</li><li>/services/conception-web</li></ul></li></ul><h4>Description</h4><p>Un résumé bref de la page qui apparaît dans les résultats de recherche. Rédigez 1 à 2 phrases qui expliquent clairement ce que les visiteurs trouveront sur cette page. De bonnes descriptions aident au référencement et encouragent les gens à cliquer sur votre site.</p><h4>Options de publication</h4><ul><li><strong>Brouillon</strong> : Travaillez sur la page sans la rendre publique</li><li><strong>En révision</strong> : Soumettez la page pour révision par d’autres membres de l’équipe</li><li><strong>Publiée</strong> : Rendez la page visible au public</li><li><strong>Planifiée</strong> : Définissez une date de publication future</li></ul><h2>Travailler avec les blocs</h2><p>Le contenu de votre page est construit en ajoutant et en organisant des blocs. Considérez les blocs comme des pièces de construction que vous pouvez empiler et réorganiser pour créer la mise en page parfaite.</p><h4>Conseils pour la construction avec les blocs</h4><ul><li>Commencez par un bloc Héros pour les pages principales</li><li>Utilisez des types de blocs cohérents pour un contenu similaire sur plusieurs pages</li><li>Considérez le flux naturel de l’information lors de l’organisation des blocs</li><li>Prévisualisez votre page sur ordinateur et mobile avant de publier</li><li>Vous pouvez masquer temporairement des blocs sans les supprimer grâce à l’option \"Masquer le bloc\"</li></ul><h4>Options d’arrière-plan des blocs</h4><p>Chaque bloc peut avoir un fond clair ou foncé :</p><ul><li>Par défaut (clair) : Option par défaut, idéale pour les sections de contenu régulier</li><li>Foncé : Crée un contraste visuel, idéal pour mettre en avant des sections importantes</li></ul><h4>Conseils généraux pour tous les blocs</h4><ul><li>Prévisualisez vos modifications avant de publier</li><li>Pensez à l’expérience mobile</li><li>Gardez le même type de bloc pour un contenu cohérent</li><li>Utilisez des titres et des accroches clairs pour guider vos visiteurs</li><li>Assurez-vous que les images sont optimisées pour le web</li><li>Testez tous les éléments interactifs comme les formulaires et les boutons</li></ul>",
+      "subtitle": "{{status}} • Publiée le : {{published_at}}",
+      "title": "{{title}}"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 7,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "fill"
+  }
+}

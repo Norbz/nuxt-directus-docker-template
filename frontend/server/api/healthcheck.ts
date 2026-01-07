@@ -25,7 +25,8 @@ export default defineEventHandler(async (event) => {
       timestamp: new Date().toISOString(),
       directus: {
         connected: true,
-        project: info?.project?.project_name || 'Unknown'
+        project: info?.data?.project?.project_name || 'Unknown',
+        version: info?.data?.version || 'Unknown'
       }
     }
     

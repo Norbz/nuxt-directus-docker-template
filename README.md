@@ -134,6 +134,13 @@ npm run directus:pull
 
 Same considerations applies regarding the admin token as for `directus:push`.
 
+## Release Please
+
+This template comes pre-configured with [Release Please](https://github.com/googleapis/release-please-action)
+and will trigger failed action runs when pushing commits to the main branch.
+
+Either add a RELEASE_PLEASE_TOKEN secret to your repository, or delete the action if you don't intend to use it.
+
 ## Environment Variables
 
 - Backend: see `api/.env.example`

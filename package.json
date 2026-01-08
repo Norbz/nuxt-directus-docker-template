@@ -1,6 +1,6 @@
 {
   "name": "nuxt-directus-docker-template",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Directus 11 backend with Nuxt 4 frontend",
   "private": true,
   "scripts": {

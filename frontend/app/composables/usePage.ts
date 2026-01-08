@@ -1,4 +1,5 @@
 import type { ContentResult } from '../../types/content';
+import type { Page } from '@/types/directus';
 import { useLivePreviewPage } from './useLivePreviewPage';
 import { useBlockComponents } from './useBlockComponents';
 

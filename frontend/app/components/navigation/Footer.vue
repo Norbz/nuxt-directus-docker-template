@@ -1,41 +1,5 @@
 <script setup lang="ts">
-import { readItems } from '@directus/sdk'
-
-const directus = useDirectus()
-
-const { data, error } = await useAsyncData('navigation-footer', async () => {
-    return directus.request(readItems('navigation', {
-        fields: ['id', 'title', 'items.*.*', 'items.children.*.*'],
-        filter: { id: { _eq: 'footer' } },
-        limit: 1,
-    }))
-})
-
-type NavigationMenuItem = {
-    id: string | number;
-    url?: string;
-    label?: string;
-    to?: string;
-    page?: {
-        permalink?: string;
-    };
-    children?: NavigationMenuItem[];
-}
-
-const items: ComputedRef<NavigationMenuItem[]> = computed(() => {
-    if (!data.value || !data.value[0]?.items) return []
-    
-    function mapItem(item: NavigationItem): NavigationMenuItem {
-        return {
-            id: item.id,
-            label: item.title,
-            to: item.url || item.page?.permalink || undefined,
-            children: item.children ? item.children.map(mapItem) : undefined
-        }
-    }
-    
-    return data.value[0].items.map(mapItem)
-})
+const { data: navigationData } = await useNavigation('main')
 </script>
 
 <template>
@@ -46,7 +10,7 @@ const items: ComputedRef<NavigationMenuItem[]> = computed(() => {
 
     <nav class="footer-nav">
       <ul>
-        <li v-for="item in items" :key="item.id">
+        <li v-for="item in navigationData?.items" :key="item.id">
           <NuxtLink v-if="item.to" :to="item.to">
             {{ item.label }}
           </NuxtLink>

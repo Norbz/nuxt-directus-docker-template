@@ -25,8 +25,7 @@ export default defineEventHandler(async (event) => {
       timestamp: new Date().toISOString(),
       directus: {
         connected: true,
-        project: info?.data?.project?.project_name || 'Unknown',
-        version: info?.data?.version || 'Unknown'
+        project: info?.project?.project_name || 'Unknown'
       }
     }
     
@@ -36,7 +35,7 @@ export default defineEventHandler(async (event) => {
     return {
       status: 'unhealthy',
       timestamp: new Date().toISOString(),
-      error: error.message,
+      error: error instanceof Error ? error.message : String(error),
       directus: {
         connected: false
       }

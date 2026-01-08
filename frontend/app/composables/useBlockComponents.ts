@@ -1,11 +1,11 @@
 import { 
-  BlocksHero, 
-  BlocksRichText, 
-  BlocksGallery, 
-  BlocksPricing, 
-  BlocksForm, 
+  BlocksHero,
+  BlocksRichText,
+  BlocksGallery,
+  BlocksPricing,
+  BlocksForm,
   BlocksIframe,
-  BlocksEmbed
+  BlocksEmbed,
 } from '#components'
 import BlocksPosts from '@/components/blocks/Posts.vue'
 

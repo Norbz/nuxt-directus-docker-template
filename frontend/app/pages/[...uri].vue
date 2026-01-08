@@ -1,12 +1,12 @@
-<script setup lang="ts">
-import { useBlockComponents } from '../composables/useBlockComponents'
-import { usePage } from '../composables/usePage'
-import { useVisualEditor } from '../composables/useVisualEditor'
+<script setup>
+import { useBlockComponents } from '@/composables/useBlockComponents'
+import { usePage } from '@/composables/usePage'
+import { useVisualEditor } from '@/composables/useVisualEditor'
 
 const { blockToComponent } = useBlockComponents()
 
 // Fetch the page data
-const { data: page, error } = await usePage()
+const { data: page } = await usePage()
 
 // Set up visual editor (handles onMounted internally)
 useVisualEditor()
@@ -16,12 +16,16 @@ useVisualEditor()
   <section class="page-container">
     <div v-if="page" class="page-content">
       <Head>
-        <Title>{{ page.seo?.title || 'Directus CMS Post' }}</Title>
+        <Title>{{ page.seo?.title || undefined }}</Title>
         <Meta name="description" :content="page.seo?.meta_description || ''" />
       </Head>
       <h1 class="page-title">{{ page.title }}</h1>
-      <div v-for="block in page.blocks" :key="block.id" class="block">
-        <component :is="blockToComponent(block.collection)" v-bind="{ id: block.id, ...block.item }"></component>
+      <div v-if="page.blocks && Array.isArray(page.blocks)" v-for="block in page.blocks" :key="typeof block === 'string' ? block : block.id" class="block">
+        <component 
+          v-if="typeof block !== 'string' && block.collection" 
+          :is="blockToComponent(block.collection)" 
+          v-bind="{ ...block.item, id: block.id }"
+        />
       </div>
     </div>
     <div v-else class="loading">Loading...</div>

@@ -1,11 +1,16 @@
 import { 
-  BlocksHero, 
-  BlocksRichText, 
-  BlocksGallery, 
-  BlocksPricing, 
-  BlocksForm, 
+  BlocksHero,
+  BlocksRichText,
+  BlocksGallery,
+  BlocksPricing,
+  BlocksForm,
   BlocksIframe,
-  BlocksEmbed
+  BlocksEmbed,
+  BlocksButton,
+  BlocksButtonGroup,
+  BlocksPost,
+  BlocksGalleryItem,
+  BlocksPricingCard
 } from '#components'
 import BlocksPosts from '@/components/blocks/Posts.vue'
 
@@ -39,6 +44,22 @@ export function useBlockComponents() {
         return BlocksPosts
       case 'block_embed':
         return BlocksEmbed
+      case 'block_button':
+        return BlocksButton
+      case 'block_button_group':
+        return BlocksButtonGroup
+      case 'block__post':
+        return BlocksPost
+      case 'block__button':
+        return BlocksButton
+      case 'block__gallery_item':
+        return BlocksGalleryItem
+      case 'block__pricing_card':
+        return BlocksPricingCard
+      case 'block__pricing':
+        return BlocksPricing
+      case 'block__button_group':
+        return BlocksButtonGroup
       default:
         return 'div'
     }

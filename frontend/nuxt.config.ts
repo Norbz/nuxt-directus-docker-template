@@ -5,6 +5,14 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/fonts', '@nuxt/icon', '@nuxt/image'],
   css: ['~/assets/scss/main.scss'],
+
+  image: {
+    directus: {
+      // This URL needs to include the final `assets/` directory
+      baseURL: `/api/_directus/assets`
+    }
+  },
+
   runtimeConfig: {
     directusUrl: import.meta.env.NUXT_DIRECTUS_URL || 'http://localhost:8055',
     public: {
@@ -20,7 +28,10 @@ export default defineNuxtConfig({
       // },
     },
     "/api/pages": {
-      cache: {
+      cache: process.env.NODE_ENV === 'development' ? {
+        maxAge: 1,
+        swr: false,
+      } : {
         maxAge: 60*15, // 15 minutes
         swr: true,
       },

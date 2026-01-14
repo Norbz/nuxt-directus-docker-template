@@ -7,7 +7,7 @@
     "install:frontend": "cd frontend && npm install",
     "dev:frontend": "cd frontend && npm run dev",
     "dev:directus": "docker-compose up directus postgres redis",
-    "dev": "npm run dev:directus & npm run dev:frontend",
+    "dev": "concurrently --kill-others --raw \"npm run dev:directus\" \"npm run dev:frontend\"",
     "dev:urls": "./scripts/show-dev-urls.sh",
     "build:frontend": "cd frontend && npm run build",
     "docker:up": "docker-compose up",
@@ -26,6 +26,7 @@
     "uploads:restore": "BACKUP_FILE=${BACKUP_FILE:-$(ls -t ./backups/uploads-backup-*.tar.gz | head -1)} && echo \"Restoring uploads from: $BACKUP_FILE\" && docker run --rm -v ${COMPOSE_PROJECT_NAME:-nuxt-directus-docker-template}_directus_uploads:/data -v $(pwd)/backups:/backup alpine sh -c 'rm -rf /data/* && tar xzf /backup/$(basename $BACKUP_FILE) -C /data' && echo \"✓ Uploads restored from: $BACKUP_FILE\"",
     "gh:config:env": "./scripts/configure-gh-environment.sh"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Norbz/nuxt-directus-docker-template.git"
@@ -36,5 +37,11 @@
     "cms"
   ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }

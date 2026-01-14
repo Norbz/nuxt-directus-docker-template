@@ -31,7 +31,7 @@ export const usePage = async (): Promise<ContentResult<Page>> => {
       return await fetchPreviewPage(permalink.value, fields)
     } else {
       // Live Mode: Use our API endpoint which handles redirects and caching
-      try {
+      // try {
         const response = await $fetch('/api/pages', {
           params: {
             permalink: permalink.value,
@@ -51,22 +51,23 @@ export const usePage = async (): Promise<ContentResult<Page>> => {
 
         // Return data if present, otherwise return the response
         return 'data' in response ? response.data : response
-      } catch (err: any) {
-        // Re-throw the error so useAsyncData handles it properly
-        throw createError({
-          statusCode: err.statusCode || 500,
-          statusMessage: err.statusMessage || err.message || 'Failed to fetch page'
-        })
-      }
     }
   })
 
-  // Handle errors
+  // Handle errors - preserve original status code and message
   if (error.value) {
     console.error('Error fetching page:', error.value)
+    
+    // Extract error details from the error object
+    const statusCode = error.value.statusCode || error.value.status || 500
+    const statusMessage = error.value.statusMessage || error.value.message || 'An error occurred'
+    const errorData = error.value.data
+    
     throw createError({
-      statusCode: error.value.statusCode || 404,
-      statusMessage: error.value.statusMessage || 'Page not found',
+      statusCode,
+      statusMessage,
+      message: statusMessage,
+      data: errorData,
       fatal: true
     })
   }

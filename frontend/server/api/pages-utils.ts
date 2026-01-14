@@ -1,4 +1,5 @@
 import type { H3Event } from 'h3'
+import { createError } from 'h3'
 
 // Types
 export interface Page {
@@ -96,8 +97,19 @@ export async function fetchPageByPermalink(
     const response = await fetch(url.toString())
     
     if (!response.ok) {
-      console.error(`Failed to fetch page for ${permalink}:`, response.statusText)
-      return null
+      const errorBody = await response.json().catch(() => ({ errors: [{ message: response.statusText }] }))
+      console.error(`Failed to fetch page for ${permalink}:`, errorBody)
+      
+      // Extract error details from Directus error response
+      const errorMessage = errorBody.errors?.[0]?.message || response.statusText
+      const errorReason = errorBody.errors?.[0]?.extensions?.reason
+      
+      throw createError({
+        statusCode: response.status,
+        statusMessage: errorMessage,
+        message: errorReason || errorMessage,
+        data: errorBody
+      })
     }
 
     const result = await response.json()
@@ -110,8 +122,18 @@ export async function fetchPageByPermalink(
     const page = result.data[0]
     
     return page
-  } catch (error) {
+  } catch (error: any) {
+    // Re-throw createError errors as-is
+    if (error.statusCode) {
+      throw error
+    }
+    
+    // For other errors, log and throw with 500
     console.error(`Error fetching page for ${permalink}:`, error)
-    return null
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Internal Server Error',
+      message: error.message || 'Failed to fetch page'
+    })
   }
 }

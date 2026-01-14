@@ -9,10 +9,6 @@
     "app_access": true,
     "roles": [
       {
-        "role": null,
-        "sort": 1
-      },
-      {
         "role": "_sync_default_admin_role",
         "sort": null
       }
@@ -69,15 +65,15 @@
     "app_access": true,
     "roles": [
       {
-        "role": "094ef469-aacd-4c22-a385-038f2bf11f27",
-        "sort": 3
-      },
-      {
         "role": "fa84c203-cd0d-47b3-974e-894fb8d3611a",
         "sort": 3
       },
       {
         "role": "f76075e7-eeee-44e7-b7ba-f3e1c0cb33e6",
+        "sort": 3
+      },
+      {
+        "role": "094ef469-aacd-4c22-a385-038f2bf11f27",
         "sort": 3
       }
     ],

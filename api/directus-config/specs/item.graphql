@@ -1,12 +1,36 @@
 type Query {
+  directus_sync_id_map(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [directus_sync_id_map!]!
+  directus_sync_id_map_by_id(id: ID!, version: String): directus_sync_id_map
+  directus_sync_id_map_aggregated(groupBy: [String], filter: directus_sync_id_map_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [directus_sync_id_map_aggregated!]!
+  directus_sync_id_map_by_version(version: String!, id: ID!): version_directus_sync_id_map
   block_embed(filter: block_embed_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [block_embed!]!
   block_embed_by_id(id: ID!, version: String): block_embed
   block_embed_aggregated(groupBy: [String], filter: block_embed_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_embed_aggregated!]!
   block_embed_by_version(version: String!, id: ID!): version_block_embed
+  ai_prompts(filter: ai_prompts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [ai_prompts!]!
+  ai_prompts_by_id(id: ID!, version: String): ai_prompts
+  ai_prompts_aggregated(groupBy: [String], filter: ai_prompts_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [ai_prompts_aggregated!]!
+  ai_prompts_by_version(version: String!, id: ID!): version_ai_prompts
   block_button_group(filter: block_button_group_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [block_button_group!]!
   block_button_group_by_id(id: ID!, version: String): block_button_group
   block_button_group_aggregated(groupBy: [String], filter: block_button_group_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_button_group_aggregated!]!
   block_button_group_by_version(version: String!, id: ID!): version_block_button_group
+  block_button(filter: block_button_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [block_button!]!
+  block_button_by_id(id: ID!, version: String): block_button
+  block_button_aggregated(groupBy: [String], filter: block_button_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_button_aggregated!]!
+  block_button_by_version(version: String!, id: ID!): version_block_button
+  pages(filter: pages_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [pages!]!
+  pages_by_id(id: ID!, version: String): pages
+  pages_aggregated(groupBy: [String], filter: pages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_aggregated!]!
+  pages_by_version(version: String!, id: ID!): version_pages
+  posts(filter: posts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [posts!]!
+  posts_by_id(id: ID!, version: String): posts
+  posts_aggregated(groupBy: [String], filter: posts_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [posts_aggregated!]!
+  posts_by_version(version: String!, id: ID!): version_posts
+  forms(filter: forms_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [forms!]!
+  forms_by_id(id: ID!, version: String): forms
+  forms_aggregated(groupBy: [String], filter: forms_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [forms_aggregated!]!
+  forms_by_version(version: String!, id: ID!): version_forms
   block_form(filter: block_form_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [block_form!]!
   block_form_by_id(id: ID!, version: String): block_form
   block_form_aggregated(groupBy: [String], filter: block_form_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_form_aggregated!]!
@@ -15,30 +39,14 @@ type Query {
   block_gallery_by_id(id: ID!, version: String): block_gallery
   block_gallery_aggregated(groupBy: [String], filter: block_gallery_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_gallery_aggregated!]!
   block_gallery_by_version(version: String!, id: ID!): version_block_gallery
-  block_hero(filter: block_hero_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [block_hero!]!
-  block_hero_by_id(id: ID!, version: String): block_hero
-  block_hero_aggregated(groupBy: [String], filter: block_hero_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_hero_aggregated!]!
-  block_hero_by_version(version: String!, id: ID!): version_block_hero
-  ai_prompts(filter: ai_prompts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [ai_prompts!]!
-  ai_prompts_by_id(id: ID!, version: String): ai_prompts
-  ai_prompts_aggregated(groupBy: [String], filter: ai_prompts_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [ai_prompts_aggregated!]!
-  ai_prompts_by_version(version: String!, id: ID!): version_ai_prompts
   block_gallery_items(filter: block_gallery_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [block_gallery_items!]!
   block_gallery_items_by_id(id: ID!, version: String): block_gallery_items
   block_gallery_items_aggregated(groupBy: [String], filter: block_gallery_items_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_gallery_items_aggregated!]!
   block_gallery_items_by_version(version: String!, id: ID!): version_block_gallery_items
-  block_pricing_cards(filter: block_pricing_cards_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [block_pricing_cards!]!
-  block_pricing_cards_by_id(id: ID!, version: String): block_pricing_cards
-  block_pricing_cards_aggregated(groupBy: [String], filter: block_pricing_cards_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_pricing_cards_aggregated!]!
-  block_pricing_cards_by_version(version: String!, id: ID!): version_block_pricing_cards
-  block_richtext(filter: block_richtext_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [block_richtext!]!
-  block_richtext_by_id(id: ID!, version: String): block_richtext
-  block_richtext_aggregated(groupBy: [String], filter: block_richtext_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_richtext_aggregated!]!
-  block_richtext_by_version(version: String!, id: ID!): version_block_richtext
-  block_pricing(filter: block_pricing_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [block_pricing!]!
-  block_pricing_by_id(id: ID!, version: String): block_pricing
-  block_pricing_aggregated(groupBy: [String], filter: block_pricing_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_pricing_aggregated!]!
-  block_pricing_by_version(version: String!, id: ID!): version_block_pricing
+  block_hero(filter: block_hero_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [block_hero!]!
+  block_hero_by_id(id: ID!, version: String): block_hero
+  block_hero_aggregated(groupBy: [String], filter: block_hero_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_hero_aggregated!]!
+  block_hero_by_version(version: String!, id: ID!): version_block_hero
   block_iframe(filter: block_iframe_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [block_iframe!]!
   block_iframe_by_id(id: ID!, version: String): block_iframe
   block_iframe_aggregated(groupBy: [String], filter: block_iframe_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_iframe_aggregated!]!
@@ -47,14 +55,18 @@ type Query {
   block_posts_by_id(id: ID!, version: String): block_posts
   block_posts_aggregated(groupBy: [String], filter: block_posts_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_posts_aggregated!]!
   block_posts_by_version(version: String!, id: ID!): version_block_posts
-  directus_sync_id_map(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [directus_sync_id_map!]!
-  directus_sync_id_map_by_id(id: ID!, version: String): directus_sync_id_map
-  directus_sync_id_map_aggregated(groupBy: [String], filter: directus_sync_id_map_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [directus_sync_id_map_aggregated!]!
-  directus_sync_id_map_by_version(version: String!, id: ID!): version_directus_sync_id_map
-  forms(filter: forms_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [forms!]!
-  forms_by_id(id: ID!, version: String): forms
-  forms_aggregated(groupBy: [String], filter: forms_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [forms_aggregated!]!
-  forms_by_version(version: String!, id: ID!): version_forms
+  block_pricing(filter: block_pricing_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [block_pricing!]!
+  block_pricing_by_id(id: ID!, version: String): block_pricing
+  block_pricing_aggregated(groupBy: [String], filter: block_pricing_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_pricing_aggregated!]!
+  block_pricing_by_version(version: String!, id: ID!): version_block_pricing
+  block_pricing_cards(filter: block_pricing_cards_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [block_pricing_cards!]!
+  block_pricing_cards_by_id(id: ID!, version: String): block_pricing_cards
+  block_pricing_cards_aggregated(groupBy: [String], filter: block_pricing_cards_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_pricing_cards_aggregated!]!
+  block_pricing_cards_by_version(version: String!, id: ID!): version_block_pricing_cards
+  block_richtext(filter: block_richtext_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [block_richtext!]!
+  block_richtext_by_id(id: ID!, version: String): block_richtext
+  block_richtext_aggregated(groupBy: [String], filter: block_richtext_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_richtext_aggregated!]!
+  block_richtext_by_version(version: String!, id: ID!): version_block_richtext
   form_fields(filter: form_fields_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [form_fields!]!
   form_fields_by_id(id: ID!, version: String): form_fields
   form_fields_aggregated(groupBy: [String], filter: form_fields_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [form_fields_aggregated!]!
@@ -67,10 +79,16 @@ type Query {
   form_submissions_by_id(id: ID!, version: String): form_submissions
   form_submissions_aggregated(groupBy: [String], filter: form_submissions_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [form_submissions_aggregated!]!
   form_submissions_by_version(version: String!, id: ID!): version_form_submissions
+  globals(version: String): globals
+  globals_by_version(version: String!): version_globals
   navigation(filter: navigation_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [navigation!]!
   navigation_by_id(id: ID!, version: String): navigation
   navigation_aggregated(groupBy: [String], filter: navigation_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [navigation_aggregated!]!
   navigation_by_version(version: String!, id: ID!): version_navigation
+  navigation_items(filter: navigation_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [navigation_items!]!
+  navigation_items_by_id(id: ID!, version: String): navigation_items
+  navigation_items_aggregated(groupBy: [String], filter: navigation_items_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [navigation_items_aggregated!]!
+  navigation_items_by_version(version: String!, id: ID!): version_navigation_items
   page_blocks(filter: page_blocks_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [page_blocks!]!
   page_blocks_by_id(id: ID!, version: String): page_blocks
   page_blocks_aggregated(groupBy: [String], filter: page_blocks_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [page_blocks_aggregated!]!
@@ -79,63 +97,51 @@ type Query {
   languages_by_id(id: ID!, version: String): languages
   languages_aggregated(groupBy: [String], filter: languages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [languages_aggregated!]!
   languages_by_version(version: String!, id: ID!): version_languages
-  globals(version: String): globals
-  globals_by_version(version: String!): version_globals
   pages_translations(filter: pages_translations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [pages_translations!]!
   pages_translations_by_id(id: ID!, version: String): pages_translations
   pages_translations_aggregated(groupBy: [String], filter: pages_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_translations_aggregated!]!
   pages_translations_by_version(version: String!, id: ID!): version_pages_translations
-  posts(filter: posts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [posts!]!
-  posts_by_id(id: ID!, version: String): posts
-  posts_aggregated(groupBy: [String], filter: posts_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [posts_aggregated!]!
-  posts_by_version(version: String!, id: ID!): version_posts
   redirects(filter: redirects_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [redirects!]!
   redirects_by_id(id: ID!, version: String): redirects
   redirects_aggregated(groupBy: [String], filter: redirects_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [redirects_aggregated!]!
   redirects_by_version(version: String!, id: ID!): version_redirects
-  block_button(filter: block_button_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [block_button!]!
-  block_button_by_id(id: ID!, version: String): block_button
-  block_button_aggregated(groupBy: [String], filter: block_button_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [block_button_aggregated!]!
-  block_button_by_version(version: String!, id: ID!): version_block_button
-  pages(filter: pages_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [pages!]!
-  pages_by_id(id: ID!, version: String): pages
-  pages_aggregated(groupBy: [String], filter: pages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_aggregated!]!
-  pages_by_version(version: String!, id: ID!): version_pages
-  navigation_items(filter: navigation_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [navigation_items!]!
-  navigation_items_by_id(id: ID!, version: String): navigation_items
-  navigation_items_aggregated(groupBy: [String], filter: navigation_items_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [navigation_items_aggregated!]!
-  navigation_items_by_version(version: String!, id: ID!): version_navigation_items
 }
 
 type Mutation {
+  create_directus_sync_id_map_items(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_directus_sync_id_map_input!]): [directus_sync_id_map!]!
+  create_directus_sync_id_map_item(data: create_directus_sync_id_map_input!): directus_sync_id_map
   create_block_embed_items(filter: block_embed_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_embed_input!]): [block_embed!]!
   create_block_embed_item(data: create_block_embed_input!): block_embed
+  create_ai_prompts_items(filter: ai_prompts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_ai_prompts_input!]): [ai_prompts!]!
+  create_ai_prompts_item(data: create_ai_prompts_input!): ai_prompts
   create_block_button_group_items(filter: block_button_group_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_button_group_input!]): [block_button_group!]!
   create_block_button_group_item(data: create_block_button_group_input!): block_button_group
+  create_block_button_items(filter: block_button_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_button_input!]): [block_button!]!
+  create_block_button_item(data: create_block_button_input!): block_button
+  create_pages_items(filter: pages_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_pages_input!]): [pages!]!
+  create_pages_item(data: create_pages_input!): pages
+  create_posts_items(filter: posts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_posts_input!]): [posts!]!
+  create_posts_item(data: create_posts_input!): posts
+  create_forms_items(filter: forms_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_forms_input!]): [forms!]!
+  create_forms_item(data: create_forms_input!): forms
   create_block_form_items(filter: block_form_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_form_input!]): [block_form!]!
   create_block_form_item(data: create_block_form_input!): block_form
   create_block_gallery_items(filter: block_gallery_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_gallery_input!]): [block_gallery!]!
   create_block_gallery_item(data: create_block_gallery_input!): block_gallery
-  create_block_hero_items(filter: block_hero_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_hero_input!]): [block_hero!]!
-  create_block_hero_item(data: create_block_hero_input!): block_hero
-  create_ai_prompts_items(filter: ai_prompts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_ai_prompts_input!]): [ai_prompts!]!
-  create_ai_prompts_item(data: create_ai_prompts_input!): ai_prompts
   create_block_gallery_items_items(filter: block_gallery_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_gallery_items_input!]): [block_gallery_items!]!
   create_block_gallery_items_item(data: create_block_gallery_items_input!): block_gallery_items
-  create_block_pricing_cards_items(filter: block_pricing_cards_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_pricing_cards_input!]): [block_pricing_cards!]!
-  create_block_pricing_cards_item(data: create_block_pricing_cards_input!): block_pricing_cards
-  create_block_richtext_items(filter: block_richtext_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_richtext_input!]): [block_richtext!]!
-  create_block_richtext_item(data: create_block_richtext_input!): block_richtext
-  create_block_pricing_items(filter: block_pricing_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_pricing_input!]): [block_pricing!]!
-  create_block_pricing_item(data: create_block_pricing_input!): block_pricing
+  create_block_hero_items(filter: block_hero_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_hero_input!]): [block_hero!]!
+  create_block_hero_item(data: create_block_hero_input!): block_hero
   create_block_iframe_items(filter: block_iframe_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_iframe_input!]): [block_iframe!]!
   create_block_iframe_item(data: create_block_iframe_input!): block_iframe
   create_block_posts_items(filter: block_posts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_posts_input!]): [block_posts!]!
   create_block_posts_item(data: create_block_posts_input!): block_posts
-  create_directus_sync_id_map_items(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_directus_sync_id_map_input!]): [directus_sync_id_map!]!
-  create_directus_sync_id_map_item(data: create_directus_sync_id_map_input!): directus_sync_id_map
-  create_forms_items(filter: forms_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_forms_input!]): [forms!]!
-  create_forms_item(data: create_forms_input!): forms
+  create_block_pricing_items(filter: block_pricing_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_pricing_input!]): [block_pricing!]!
+  create_block_pricing_item(data: create_block_pricing_input!): block_pricing
+  create_block_pricing_cards_items(filter: block_pricing_cards_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_pricing_cards_input!]): [block_pricing_cards!]!
+  create_block_pricing_cards_item(data: create_block_pricing_cards_input!): block_pricing_cards
+  create_block_richtext_items(filter: block_richtext_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_richtext_input!]): [block_richtext!]!
+  create_block_richtext_item(data: create_block_richtext_input!): block_richtext
   create_form_fields_items(filter: form_fields_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_form_fields_input!]): [form_fields!]!
   create_form_fields_item(data: create_form_fields_input!): form_fields
   create_form_submission_values_items(filter: form_submission_values_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_form_submission_values_input!]): [form_submission_values!]!
@@ -144,64 +150,67 @@ type Mutation {
   create_form_submissions_item(data: create_form_submissions_input!): form_submissions
   create_navigation_items(filter: navigation_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_navigation_input!]): [navigation!]!
   create_navigation_item(data: create_navigation_input!): navigation
+  create_navigation_items_items(filter: navigation_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_navigation_items_input!]): [navigation_items!]!
+  create_navigation_items_item(data: create_navigation_items_input!): navigation_items
   create_page_blocks_items(filter: page_blocks_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_page_blocks_input!]): [page_blocks!]!
   create_page_blocks_item(data: create_page_blocks_input!): page_blocks
   create_languages_items(filter: languages_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_languages_input!]): [languages!]!
   create_languages_item(data: create_languages_input!): languages
   create_pages_translations_items(filter: pages_translations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_pages_translations_input!]): [pages_translations!]!
   create_pages_translations_item(data: create_pages_translations_input!): pages_translations
-  create_posts_items(filter: posts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_posts_input!]): [posts!]!
-  create_posts_item(data: create_posts_input!): posts
   create_redirects_items(filter: redirects_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_redirects_input!]): [redirects!]!
   create_redirects_item(data: create_redirects_input!): redirects
-  create_block_button_items(filter: block_button_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_block_button_input!]): [block_button!]!
-  create_block_button_item(data: create_block_button_input!): block_button
-  create_pages_items(filter: pages_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_pages_input!]): [pages!]!
-  create_pages_item(data: create_pages_input!): pages
-  create_navigation_items_items(filter: navigation_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_navigation_items_input!]): [navigation_items!]!
-  create_navigation_items_item(data: create_navigation_items_input!): navigation_items
+  update_directus_sync_id_map_items(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_directus_sync_id_map_input!): [directus_sync_id_map!]!
+  update_directus_sync_id_map_batch(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_directus_sync_id_map_input!]): [directus_sync_id_map!]!
+  update_directus_sync_id_map_item(id: ID!, data: update_directus_sync_id_map_input!): directus_sync_id_map
   update_block_embed_items(filter: block_embed_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_embed_input!): [block_embed!]!
   update_block_embed_batch(filter: block_embed_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_embed_input!]): [block_embed!]!
   update_block_embed_item(id: ID!, data: update_block_embed_input!): block_embed
+  update_ai_prompts_items(filter: ai_prompts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_ai_prompts_input!): [ai_prompts!]!
+  update_ai_prompts_batch(filter: ai_prompts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_ai_prompts_input!]): [ai_prompts!]!
+  update_ai_prompts_item(id: ID!, data: update_ai_prompts_input!): ai_prompts
   update_block_button_group_items(filter: block_button_group_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_button_group_input!): [block_button_group!]!
   update_block_button_group_batch(filter: block_button_group_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_button_group_input!]): [block_button_group!]!
   update_block_button_group_item(id: ID!, data: update_block_button_group_input!): block_button_group
+  update_block_button_items(filter: block_button_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_button_input!): [block_button!]!
+  update_block_button_batch(filter: block_button_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_button_input!]): [block_button!]!
+  update_block_button_item(id: ID!, data: update_block_button_input!): block_button
+  update_pages_items(filter: pages_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_pages_input!): [pages!]!
+  update_pages_batch(filter: pages_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_pages_input!]): [pages!]!
+  update_pages_item(id: ID!, data: update_pages_input!): pages
+  update_posts_items(filter: posts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_posts_input!): [posts!]!
+  update_posts_batch(filter: posts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_posts_input!]): [posts!]!
+  update_posts_item(id: ID!, data: update_posts_input!): posts
+  update_forms_items(filter: forms_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_forms_input!): [forms!]!
+  update_forms_batch(filter: forms_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_forms_input!]): [forms!]!
+  update_forms_item(id: ID!, data: update_forms_input!): forms
   update_block_form_items(filter: block_form_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_form_input!): [block_form!]!
   update_block_form_batch(filter: block_form_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_form_input!]): [block_form!]!
   update_block_form_item(id: ID!, data: update_block_form_input!): block_form
   update_block_gallery_items(filter: block_gallery_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_gallery_input!): [block_gallery!]!
   update_block_gallery_batch(filter: block_gallery_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_gallery_input!]): [block_gallery!]!
   update_block_gallery_item(id: ID!, data: update_block_gallery_input!): block_gallery
-  update_block_hero_items(filter: block_hero_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_hero_input!): [block_hero!]!
-  update_block_hero_batch(filter: block_hero_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_hero_input!]): [block_hero!]!
-  update_block_hero_item(id: ID!, data: update_block_hero_input!): block_hero
-  update_ai_prompts_items(filter: ai_prompts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_ai_prompts_input!): [ai_prompts!]!
-  update_ai_prompts_batch(filter: ai_prompts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_ai_prompts_input!]): [ai_prompts!]!
-  update_ai_prompts_item(id: ID!, data: update_ai_prompts_input!): ai_prompts
   update_block_gallery_items_items(filter: block_gallery_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_gallery_items_input!): [block_gallery_items!]!
   update_block_gallery_items_batch(filter: block_gallery_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_gallery_items_input!]): [block_gallery_items!]!
   update_block_gallery_items_item(id: ID!, data: update_block_gallery_items_input!): block_gallery_items
-  update_block_pricing_cards_items(filter: block_pricing_cards_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_pricing_cards_input!): [block_pricing_cards!]!
-  update_block_pricing_cards_batch(filter: block_pricing_cards_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_pricing_cards_input!]): [block_pricing_cards!]!
-  update_block_pricing_cards_item(id: ID!, data: update_block_pricing_cards_input!): block_pricing_cards
-  update_block_richtext_items(filter: block_richtext_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_richtext_input!): [block_richtext!]!
-  update_block_richtext_batch(filter: block_richtext_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_richtext_input!]): [block_richtext!]!
-  update_block_richtext_item(id: ID!, data: update_block_richtext_input!): block_richtext
-  update_block_pricing_items(filter: block_pricing_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_pricing_input!): [block_pricing!]!
-  update_block_pricing_batch(filter: block_pricing_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_pricing_input!]): [block_pricing!]!
-  update_block_pricing_item(id: ID!, data: update_block_pricing_input!): block_pricing
+  update_block_hero_items(filter: block_hero_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_hero_input!): [block_hero!]!
+  update_block_hero_batch(filter: block_hero_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_hero_input!]): [block_hero!]!
+  update_block_hero_item(id: ID!, data: update_block_hero_input!): block_hero
   update_block_iframe_items(filter: block_iframe_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_iframe_input!): [block_iframe!]!
   update_block_iframe_batch(filter: block_iframe_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_iframe_input!]): [block_iframe!]!
   update_block_iframe_item(id: ID!, data: update_block_iframe_input!): block_iframe
   update_block_posts_items(filter: block_posts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_posts_input!): [block_posts!]!
   update_block_posts_batch(filter: block_posts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_posts_input!]): [block_posts!]!
   update_block_posts_item(id: ID!, data: update_block_posts_input!): block_posts
-  update_directus_sync_id_map_items(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_directus_sync_id_map_input!): [directus_sync_id_map!]!
-  update_directus_sync_id_map_batch(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_directus_sync_id_map_input!]): [directus_sync_id_map!]!
-  update_directus_sync_id_map_item(id: ID!, data: update_directus_sync_id_map_input!): directus_sync_id_map
-  update_forms_items(filter: forms_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_forms_input!): [forms!]!
-  update_forms_batch(filter: forms_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_forms_input!]): [forms!]!
-  update_forms_item(id: ID!, data: update_forms_input!): forms
+  update_block_pricing_items(filter: block_pricing_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_pricing_input!): [block_pricing!]!
+  update_block_pricing_batch(filter: block_pricing_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_pricing_input!]): [block_pricing!]!
+  update_block_pricing_item(id: ID!, data: update_block_pricing_input!): block_pricing
+  update_block_pricing_cards_items(filter: block_pricing_cards_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_pricing_cards_input!): [block_pricing_cards!]!
+  update_block_pricing_cards_batch(filter: block_pricing_cards_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_pricing_cards_input!]): [block_pricing_cards!]!
+  update_block_pricing_cards_item(id: ID!, data: update_block_pricing_cards_input!): block_pricing_cards
+  update_block_richtext_items(filter: block_richtext_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_richtext_input!): [block_richtext!]!
+  update_block_richtext_batch(filter: block_richtext_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_richtext_input!]): [block_richtext!]!
+  update_block_richtext_item(id: ID!, data: update_block_richtext_input!): block_richtext
   update_form_fields_items(filter: form_fields_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_form_fields_input!): [form_fields!]!
   update_form_fields_batch(filter: form_fields_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_form_fields_input!]): [form_fields!]!
   update_form_fields_item(id: ID!, data: update_form_fields_input!): form_fields
@@ -211,62 +220,59 @@ type Mutation {
   update_form_submissions_items(filter: form_submissions_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_form_submissions_input!): [form_submissions!]!
   update_form_submissions_batch(filter: form_submissions_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_form_submissions_input!]): [form_submissions!]!
   update_form_submissions_item(id: ID!, data: update_form_submissions_input!): form_submissions
+  update_globals(data: update_globals_input!): globals
   update_navigation_items(filter: navigation_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_navigation_input!): [navigation!]!
   update_navigation_batch(filter: navigation_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_navigation_input!]): [navigation!]!
   update_navigation_item(id: ID!, data: update_navigation_input!): navigation
+  update_navigation_items_items(filter: navigation_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_navigation_items_input!): [navigation_items!]!
+  update_navigation_items_batch(filter: navigation_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_navigation_items_input!]): [navigation_items!]!
+  update_navigation_items_item(id: ID!, data: update_navigation_items_input!): navigation_items
   update_page_blocks_items(filter: page_blocks_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_page_blocks_input!): [page_blocks!]!
   update_page_blocks_batch(filter: page_blocks_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_page_blocks_input!]): [page_blocks!]!
   update_page_blocks_item(id: ID!, data: update_page_blocks_input!): page_blocks
   update_languages_items(filter: languages_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_languages_input!): [languages!]!
   update_languages_batch(filter: languages_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_languages_input!]): [languages!]!
   update_languages_item(id: ID!, data: update_languages_input!): languages
-  update_globals(data: update_globals_input!): globals
   update_pages_translations_items(filter: pages_translations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_pages_translations_input!): [pages_translations!]!
   update_pages_translations_batch(filter: pages_translations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_pages_translations_input!]): [pages_translations!]!
   update_pages_translations_item(id: ID!, data: update_pages_translations_input!): pages_translations
-  update_posts_items(filter: posts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_posts_input!): [posts!]!
-  update_posts_batch(filter: posts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_posts_input!]): [posts!]!
-  update_posts_item(id: ID!, data: update_posts_input!): posts
   update_redirects_items(filter: redirects_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_redirects_input!): [redirects!]!
   update_redirects_batch(filter: redirects_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_redirects_input!]): [redirects!]!
   update_redirects_item(id: ID!, data: update_redirects_input!): redirects
-  update_block_button_items(filter: block_button_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_block_button_input!): [block_button!]!
-  update_block_button_batch(filter: block_button_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_block_button_input!]): [block_button!]!
-  update_block_button_item(id: ID!, data: update_block_button_input!): block_button
-  update_pages_items(filter: pages_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_pages_input!): [pages!]!
-  update_pages_batch(filter: pages_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_pages_input!]): [pages!]!
-  update_pages_item(id: ID!, data: update_pages_input!): pages
-  update_navigation_items_items(filter: navigation_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_navigation_items_input!): [navigation_items!]!
-  update_navigation_items_batch(filter: navigation_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_navigation_items_input!]): [navigation_items!]!
-  update_navigation_items_item(id: ID!, data: update_navigation_items_input!): navigation_items
+  delete_directus_sync_id_map_items(ids: [ID]!): delete_many
+  delete_directus_sync_id_map_item(id: ID!): delete_one
   delete_block_embed_items(ids: [ID]!): delete_many
   delete_block_embed_item(id: ID!): delete_one
+  delete_ai_prompts_items(ids: [ID]!): delete_many
+  delete_ai_prompts_item(id: ID!): delete_one
   delete_block_button_group_items(ids: [ID]!): delete_many
   delete_block_button_group_item(id: ID!): delete_one
+  delete_block_button_items(ids: [ID]!): delete_many
+  delete_block_button_item(id: ID!): delete_one
+  delete_pages_items(ids: [ID]!): delete_many
+  delete_pages_item(id: ID!): delete_one
+  delete_posts_items(ids: [ID]!): delete_many
+  delete_posts_item(id: ID!): delete_one
+  delete_forms_items(ids: [ID]!): delete_many
+  delete_forms_item(id: ID!): delete_one
   delete_block_form_items(ids: [ID]!): delete_many
   delete_block_form_item(id: ID!): delete_one
   delete_block_gallery_items(ids: [ID]!): delete_many
   delete_block_gallery_item(id: ID!): delete_one
-  delete_block_hero_items(ids: [ID]!): delete_many
-  delete_block_hero_item(id: ID!): delete_one
-  delete_ai_prompts_items(ids: [ID]!): delete_many
-  delete_ai_prompts_item(id: ID!): delete_one
   delete_block_gallery_items_items(ids: [ID]!): delete_many
   delete_block_gallery_items_item(id: ID!): delete_one
-  delete_block_pricing_cards_items(ids: [ID]!): delete_many
-  delete_block_pricing_cards_item(id: ID!): delete_one
-  delete_block_richtext_items(ids: [ID]!): delete_many
-  delete_block_richtext_item(id: ID!): delete_one
-  delete_block_pricing_items(ids: [ID]!): delete_many
-  delete_block_pricing_item(id: ID!): delete_one
+  delete_block_hero_items(ids: [ID]!): delete_many
+  delete_block_hero_item(id: ID!): delete_one
   delete_block_iframe_items(ids: [ID]!): delete_many
   delete_block_iframe_item(id: ID!): delete_one
   delete_block_posts_items(ids: [ID]!): delete_many
   delete_block_posts_item(id: ID!): delete_one
-  delete_directus_sync_id_map_items(ids: [ID]!): delete_many
-  delete_directus_sync_id_map_item(id: ID!): delete_one
-  delete_forms_items(ids: [ID]!): delete_many
-  delete_forms_item(id: ID!): delete_one
+  delete_block_pricing_items(ids: [ID]!): delete_many
+  delete_block_pricing_item(id: ID!): delete_one
+  delete_block_pricing_cards_items(ids: [ID]!): delete_many
+  delete_block_pricing_cards_item(id: ID!): delete_one
+  delete_block_richtext_items(ids: [ID]!): delete_many
+  delete_block_richtext_item(id: ID!): delete_one
   delete_form_fields_items(ids: [ID]!): delete_many
   delete_form_fields_item(id: ID!): delete_one
   delete_form_submission_values_items(ids: [ID]!): delete_many
@@ -275,73 +281,67 @@ type Mutation {
   delete_form_submissions_item(id: ID!): delete_one
   delete_navigation_items(ids: [ID]!): delete_many
   delete_navigation_item(id: ID!): delete_one
+  delete_navigation_items_items(ids: [ID]!): delete_many
+  delete_navigation_items_item(id: ID!): delete_one
   delete_page_blocks_items(ids: [ID]!): delete_many
   delete_page_blocks_item(id: ID!): delete_one
   delete_languages_items(ids: [ID]!): delete_many
   delete_languages_item(id: ID!): delete_one
   delete_pages_translations_items(ids: [ID]!): delete_many
   delete_pages_translations_item(id: ID!): delete_one
-  delete_posts_items(ids: [ID]!): delete_many
-  delete_posts_item(id: ID!): delete_one
   delete_redirects_items(ids: [ID]!): delete_many
   delete_redirects_item(id: ID!): delete_one
-  delete_block_button_items(ids: [ID]!): delete_many
-  delete_block_button_item(id: ID!): delete_one
-  delete_pages_items(ids: [ID]!): delete_many
-  delete_pages_item(id: ID!): delete_one
-  delete_navigation_items_items(ids: [ID]!): delete_many
-  delete_navigation_items_item(id: ID!): delete_one
 }
 
 type Subscription {
-  block_embed_mutated(event: EventEnum): block_embed_mutated
-  block_button_group_mutated(event: EventEnum): block_button_group_mutated
-  block_form_mutated(event: EventEnum): block_form_mutated
-  block_gallery_mutated(event: EventEnum): block_gallery_mutated
-  block_hero_mutated(event: EventEnum): block_hero_mutated
-  ai_prompts_mutated(event: EventEnum): ai_prompts_mutated
-  block_gallery_items_mutated(event: EventEnum): block_gallery_items_mutated
-  block_pricing_cards_mutated(event: EventEnum): block_pricing_cards_mutated
-  block_richtext_mutated(event: EventEnum): block_richtext_mutated
-  block_pricing_mutated(event: EventEnum): block_pricing_mutated
+  directus_activity_mutated(event: EventEnum): directus_activity_mutated
+  directus_roles_mutated(event: EventEnum): directus_roles_mutated
+  directus_folders_mutated(event: EventEnum): directus_folders_mutated
+  directus_files_mutated(event: EventEnum): directus_files_mutated
+  directus_webhooks_mutated(event: EventEnum): directus_webhooks_mutated
+  directus_permissions_mutated(event: EventEnum): directus_permissions_mutated
+  directus_revisions_mutated(event: EventEnum): directus_revisions_mutated
+  directus_presets_mutated(event: EventEnum): directus_presets_mutated
+  directus_translations_mutated(event: EventEnum): directus_translations_mutated
+  directus_panels_mutated(event: EventEnum): directus_panels_mutated
+  directus_flows_mutated(event: EventEnum): directus_flows_mutated
+  directus_notifications_mutated(event: EventEnum): directus_notifications_mutated
+  directus_shares_mutated(event: EventEnum): directus_shares_mutated
+  directus_operations_mutated(event: EventEnum): directus_operations_mutated
+  directus_dashboards_mutated(event: EventEnum): directus_dashboards_mutated
+  directus_users_mutated(event: EventEnum): directus_users_mutated
+  directus_versions_mutated(event: EventEnum): directus_versions_mutated
+  directus_policies_mutated(event: EventEnum): directus_policies_mutated
   directus_access_mutated(event: EventEnum): directus_access_mutated
   directus_comments_mutated(event: EventEnum): directus_comments_mutated
-  directus_dashboards_mutated(event: EventEnum): directus_dashboards_mutated
-  directus_folders_mutated(event: EventEnum): directus_folders_mutated
-  block_iframe_mutated(event: EventEnum): block_iframe_mutated
-  directus_activity_mutated(event: EventEnum): directus_activity_mutated
-  directus_files_mutated(event: EventEnum): directus_files_mutated
-  block_posts_mutated(event: EventEnum): block_posts_mutated
-  directus_flows_mutated(event: EventEnum): directus_flows_mutated
-  directus_operations_mutated(event: EventEnum): directus_operations_mutated
-  directus_panels_mutated(event: EventEnum): directus_panels_mutated
-  directus_permissions_mutated(event: EventEnum): directus_permissions_mutated
-  directus_presets_mutated(event: EventEnum): directus_presets_mutated
-  directus_roles_mutated(event: EventEnum): directus_roles_mutated
-  directus_revisions_mutated(event: EventEnum): directus_revisions_mutated
-  directus_notifications_mutated(event: EventEnum): directus_notifications_mutated
-  directus_settings_mutated(event: EventEnum): directus_settings_mutated
-  directus_policies_mutated(event: EventEnum): directus_policies_mutated
   directus_sync_id_map_mutated(event: EventEnum): directus_sync_id_map_mutated
-  directus_translations_mutated(event: EventEnum): directus_translations_mutated
+  block_embed_mutated(event: EventEnum): block_embed_mutated
+  directus_settings_mutated(event: EventEnum): directus_settings_mutated
+  ai_prompts_mutated(event: EventEnum): ai_prompts_mutated
+  block_button_group_mutated(event: EventEnum): block_button_group_mutated
+  block_button_mutated(event: EventEnum): block_button_mutated
+  pages_mutated(event: EventEnum): pages_mutated
+  posts_mutated(event: EventEnum): posts_mutated
   forms_mutated(event: EventEnum): forms_mutated
-  directus_shares_mutated(event: EventEnum): directus_shares_mutated
+  block_form_mutated(event: EventEnum): block_form_mutated
+  block_gallery_mutated(event: EventEnum): block_gallery_mutated
+  block_gallery_items_mutated(event: EventEnum): block_gallery_items_mutated
+  block_hero_mutated(event: EventEnum): block_hero_mutated
+  block_iframe_mutated(event: EventEnum): block_iframe_mutated
+  block_posts_mutated(event: EventEnum): block_posts_mutated
+  block_pricing_mutated(event: EventEnum): block_pricing_mutated
+  block_pricing_cards_mutated(event: EventEnum): block_pricing_cards_mutated
+  block_richtext_mutated(event: EventEnum): block_richtext_mutated
   form_fields_mutated(event: EventEnum): form_fields_mutated
   form_submission_values_mutated(event: EventEnum): form_submission_values_mutated
   form_submissions_mutated(event: EventEnum): form_submissions_mutated
-  directus_versions_mutated(event: EventEnum): directus_versions_mutated
+  globals_mutated(event: EventEnum): globals_mutated
   navigation_mutated(event: EventEnum): navigation_mutated
+  navigation_items_mutated(event: EventEnum): navigation_items_mutated
   page_blocks_mutated(event: EventEnum): page_blocks_mutated
   languages_mutated(event: EventEnum): languages_mutated
-  directus_users_mutated(event: EventEnum): directus_users_mutated
-  directus_webhooks_mutated(event: EventEnum): directus_webhooks_mutated
-  globals_mutated(event: EventEnum): globals_mutated
   pages_translations_mutated(event: EventEnum): pages_translations_mutated
-  posts_mutated(event: EventEnum): posts_mutated
   redirects_mutated(event: EventEnum): redirects_mutated
-  block_button_mutated(event: EventEnum): block_button_mutated
-  pages_mutated(event: EventEnum): pages_mutated
-  navigation_items_mutated(event: EventEnum): navigation_items_mutated
 }
 
 """The `Boolean` scalar type represents `true` or `false`."""

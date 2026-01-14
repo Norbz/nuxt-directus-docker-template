@@ -99,20 +99,6 @@
     "name": "Format",
     "key": "format",
     "type": "exec",
-    "position_x": 19,
-    "position_y": 18,
-    "options": {
-      "code": "/**\n * Prepares email template data by matching trigger values with form fields\n * @param {Object} trigger - The trigger object containing payload values\n * @param {Object} form - The form object containing fields and email templates\n * @returns {Array} Array of prepared email template objects\n * @throws {Error} If required data is missing or invalid\n */\nfunction prepareEmailTemplateData(trigger, form) {\n  // Validate input parameters\n  if (!trigger?.payload?.values || !Array.isArray(trigger.payload.values)) {\n    throw new Error('Invalid trigger payload values');\n  }\n  \n  if (!form?.fields || !Array.isArray(form.fields)) {\n    throw new Error('Invalid form fields');\n  }\n  \n  if (!form?.emails || !Array.isArray(form.emails)) {\n    throw new Error('Invalid form emails');\n  }\n\n  // Create an object to store the field name-value pairs\n  const data = {};\n  \n  // Iterate through the trigger values and match them with form fields\n  trigger.payload.values.forEach(item => {\n    if (!item || typeof item !== 'object') {\n      throw new Error('Invalid trigger value item');\n    }\n\n    // Ensure required properties exist\n    if (!item.field && !item.field_name) {\n      throw new Error('Missing field identifier in trigger value');\n    }\n    \n    if (item.value === undefined) {\n      throw new Error('Missing value in trigger value');\n    }\n\n    // Find the corresponding field in the form\n    const formField = form.fields.find(field => field.id === item.field);\n    \n    // If a matching field is found, use its name as the key\n    if (formField && formField.name) {\n      data[formField.name] = item.value;\n    } else {\n      // Fallback to using the field_name from the trigger if no match is found\n      data[item.field_name || item.field] = item.value;\n    }\n  });\n\n  // Process and validate all email templates\n  const emailTemplates = form.emails.map(email => {\n    // Validate required email template properties\n    if (!email.subject) {\n      throw new Error('Missing email subject');\n    }\n    \n    if (!email.message) {\n      throw new Error('Missing email message template');\n    }\n    \n    if (!email.to) {\n      throw new Error('Missing email recipient');\n    }\n\n    // Normalize 'to' field to always be an array\n    const toField = Array.isArray(email.to) ? email.to : [email.to];\n    \n    // Validate each email address\n    toField.forEach(recipient => {\n      if (typeof recipient !== 'string' || !recipient.trim()) {\n        throw new Error('Invalid email recipient');\n      }\n    });\n\n    return {\n      to: toField,\n      subject: email.subject,\n      template: email.message,\n      data: data\n    };\n  });\n\n  return emailTemplates;\n}\n\nmodule.exports = function(data) {\n  if (!data?.$trigger || !data?.form) {\n    throw new Error('Missing required data');\n  }\n  \n  return prepareEmailTemplateData(data.$trigger, data.form);\n};"
-    },
-    "resolve": "bb95d8ef-624e-4a78-865f-9047e9a9dfcd",
-    "reject": null,
-    "flow": "61757ab0-b139-4079-b5eb-4e05bb8142ac",
-    "_syncId": "ebe898f9-6ccf-49f6-a073-cde97e1f5fd0"
-  },
-  {
-    "name": "Format",
-    "key": "format",
-    "type": "exec",
     "position_x": 37,
     "position_y": 1,
     "options": {
@@ -136,6 +122,20 @@
     "reject": null,
     "flow": "5915dd55-fff8-4d47-b48c-a0e42e5033c1",
     "_syncId": "02fbe2ea-18fb-4efb-8639-ba9a45b31c40"
+  },
+  {
+    "name": "Format",
+    "key": "format",
+    "type": "exec",
+    "position_x": 19,
+    "position_y": 18,
+    "options": {
+      "code": "/**\n * Prepares email template data by matching trigger values with form fields\n * @param {Object} trigger - The trigger object containing payload values\n * @param {Object} form - The form object containing fields and email templates\n * @returns {Array} Array of prepared email template objects\n * @throws {Error} If required data is missing or invalid\n */\nfunction prepareEmailTemplateData(trigger, form) {\n  // Validate input parameters\n  if (!trigger?.payload?.values || !Array.isArray(trigger.payload.values)) {\n    throw new Error('Invalid trigger payload values');\n  }\n  \n  if (!form?.fields || !Array.isArray(form.fields)) {\n    throw new Error('Invalid form fields');\n  }\n  \n  if (!form?.emails || !Array.isArray(form.emails)) {\n    throw new Error('Invalid form emails');\n  }\n\n  // Create an object to store the field name-value pairs\n  const data = {};\n  \n  // Iterate through the trigger values and match them with form fields\n  trigger.payload.values.forEach(item => {\n    if (!item || typeof item !== 'object') {\n      throw new Error('Invalid trigger value item');\n    }\n\n    // Ensure required properties exist\n    if (!item.field && !item.field_name) {\n      throw new Error('Missing field identifier in trigger value');\n    }\n    \n    if (item.value === undefined) {\n      throw new Error('Missing value in trigger value');\n    }\n\n    // Find the corresponding field in the form\n    const formField = form.fields.find(field => field.id === item.field);\n    \n    // If a matching field is found, use its name as the key\n    if (formField && formField.name) {\n      data[formField.name] = item.value;\n    } else {\n      // Fallback to using the field_name from the trigger if no match is found\n      data[item.field_name || item.field] = item.value;\n    }\n  });\n\n  // Process and validate all email templates\n  const emailTemplates = form.emails.map(email => {\n    // Validate required email template properties\n    if (!email.subject) {\n      throw new Error('Missing email subject');\n    }\n    \n    if (!email.message) {\n      throw new Error('Missing email message template');\n    }\n    \n    if (!email.to) {\n      throw new Error('Missing email recipient');\n    }\n\n    // Normalize 'to' field to always be an array\n    const toField = Array.isArray(email.to) ? email.to : [email.to];\n    \n    // Validate each email address\n    toField.forEach(recipient => {\n      if (typeof recipient !== 'string' || !recipient.trim()) {\n        throw new Error('Invalid email recipient');\n      }\n    });\n\n    return {\n      to: toField,\n      subject: email.subject,\n      template: email.message,\n      data: data\n    };\n  });\n\n  return emailTemplates;\n}\n\nmodule.exports = function(data) {\n  if (!data?.$trigger || !data?.form) {\n    throw new Error('Missing required data');\n  }\n  \n  return prepareEmailTemplateData(data.$trigger, data.form);\n};"
+    },
+    "resolve": "bb95d8ef-624e-4a78-865f-9047e9a9dfcd",
+    "reject": null,
+    "flow": "61757ab0-b139-4079-b5eb-4e05bb8142ac",
+    "_syncId": "ebe898f9-6ccf-49f6-a073-cde97e1f5fd0"
   },
   {
     "name": "Format Payload",
@@ -228,10 +228,10 @@
     "options": {
       "flow": "69e87d0b-df14-4779-bdc8-abc05f2f1e97"
     },
-    "resolve": "cca49294-0440-4b46-9839-ece646b8f533",
+    "resolve": "f4615767-d202-4325-9cd5-69616a142edc",
     "reject": null,
-    "flow": "d4bbac48-a444-49e0-aedb-9af5273b88df",
-    "_syncId": "fc5254a7-b5ca-4888-b967-3c7db683b8b7"
+    "flow": "5915dd55-fff8-4d47-b48c-a0e42e5033c1",
+    "_syncId": "642012ec-0c72-4fa0-b395-f0c737800cc2"
   },
   {
     "name": "Globals",
@@ -256,10 +256,10 @@
     "options": {
       "flow": "69e87d0b-df14-4779-bdc8-abc05f2f1e97"
     },
-    "resolve": "f4615767-d202-4325-9cd5-69616a142edc",
+    "resolve": "cca49294-0440-4b46-9839-ece646b8f533",
     "reject": null,
-    "flow": "5915dd55-fff8-4d47-b48c-a0e42e5033c1",
-    "_syncId": "642012ec-0c72-4fa0-b395-f0c737800cc2"
+    "flow": "d4bbac48-a444-49e0-aedb-9af5273b88df",
+    "_syncId": "fc5254a7-b5ca-4888-b967-3c7db683b8b7"
   },
   {
     "name": "Image",
@@ -325,23 +325,6 @@
     "_syncId": "bad7dfbc-ec25-4446-848e-0ca99856fa2c"
   },
   {
-    "name": "Read Item",
-    "key": "item",
-    "type": "item-read",
-    "position_x": 37,
-    "position_y": 1,
-    "options": {
-      "permissions": "$trigger",
-      "emitEvents": false,
-      "collection": "{{$trigger.collection}}",
-      "key": "{{$trigger.keys}}"
-    },
-    "resolve": "bad7dfbc-ec25-4446-848e-0ca99856fa2c",
-    "reject": null,
-    "flow": "c62ceaa5-bd09-4158-8329-98792debc5d5",
-    "_syncId": "0d9dc062-10b7-4170-b0e6-1add523232e4"
-  },
-  {
     "name": "Item",
     "key": "item",
     "type": "item-read",
@@ -360,6 +343,23 @@
     "reject": null,
     "flow": "a23110e1-700b-41b8-9f9e-ca0998b84a76",
     "_syncId": "cd69a2b7-4fc7-40ab-80f0-edba5ce4c8db"
+  },
+  {
+    "name": "Read Item",
+    "key": "item",
+    "type": "item-read",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "collection": "{{$trigger.collection}}",
+      "key": "{{$trigger.keys}}"
+    },
+    "resolve": "bad7dfbc-ec25-4446-848e-0ca99856fa2c",
+    "reject": null,
+    "flow": "c62ceaa5-bd09-4158-8329-98792debc5d5",
+    "_syncId": "0d9dc062-10b7-4170-b0e6-1add523232e4"
   },
   {
     "name": "Update Data",
@@ -540,6 +540,23 @@
     "key": "send_email",
     "type": "mail",
     "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "to": "{{$trigger.to}}",
+      "subject": "{{$trigger.subject}}",
+      "type": "wysiwyg",
+      "body": "<p>{{$trigger.body}}</p>"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "7c8732cd-9d9e-44be-a3f6-89c0d42c7687",
+    "_syncId": "9d304b44-3799-43e6-9e3a-ad2e4f063506"
+  },
+  {
+    "name": "Send Email",
+    "key": "send_email",
+    "type": "mail",
+    "position_x": 37,
     "position_y": 19,
     "options": {
       "to": [
@@ -555,23 +572,6 @@
     "reject": null,
     "flow": "3172d021-0b0f-4d4d-bcca-c5c46eb8fadf",
     "_syncId": "526b4a2d-5562-485f-bd9c-77a29871277c"
-  },
-  {
-    "name": "Send Email",
-    "key": "send_email",
-    "type": "mail",
-    "position_x": 37,
-    "position_y": 1,
-    "options": {
-      "to": "{{$trigger.to}}",
-      "subject": "{{$trigger.subject}}",
-      "type": "wysiwyg",
-      "body": "<p>{{$trigger.body}}</p>"
-    },
-    "resolve": null,
-    "reject": null,
-    "flow": "7c8732cd-9d9e-44be-a3f6-89c0d42c7687",
-    "_syncId": "9d304b44-3799-43e6-9e3a-ad2e4f063506"
   },
   {
     "name": "Did Slug Change",
@@ -612,25 +612,6 @@
     "name": "Update",
     "key": "update",
     "type": "item-update",
-    "position_x": 73,
-    "position_y": 1,
-    "options": {
-      "collection": "posts",
-      "permissions": "$full",
-      "key": [
-        "{{$trigger.body.keys}}"
-      ],
-      "payload": "{{format}}"
-    },
-    "resolve": null,
-    "reject": null,
-    "flow": "5915dd55-fff8-4d47-b48c-a0e42e5033c1",
-    "_syncId": "71ab330a-795b-48ae-927a-c3a8b67d6674"
-  },
-  {
-    "name": "Update",
-    "key": "update",
-    "type": "item-update",
     "position_x": 92,
     "position_y": 1,
     "options": {
@@ -645,6 +626,25 @@
     "reject": null,
     "flow": "d4bbac48-a444-49e0-aedb-9af5273b88df",
     "_syncId": "f5d2e740-af74-42b7-9248-4c3f740887ae"
+  },
+  {
+    "name": "Update",
+    "key": "update",
+    "type": "item-update",
+    "position_x": 73,
+    "position_y": 1,
+    "options": {
+      "collection": "posts",
+      "permissions": "$full",
+      "key": [
+        "{{$trigger.body.keys}}"
+      ],
+      "payload": "{{format}}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "5915dd55-fff8-4d47-b48c-a0e42e5033c1",
+    "_syncId": "71ab330a-795b-48ae-927a-c3a8b67d6674"
   },
   {
     "name": "Verify To",

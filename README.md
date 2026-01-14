@@ -78,6 +78,15 @@ docker-compose up
 **Default admin:** `admin@example.com` / `admin`  
 ⚠️ Change these credentials after first login!
 
+### 4. Admin setup
+- Go to http://localhost:8055/admin
+- Use default admin credentials
+- Create an admin token
+- Push the schema (see below)
+- Refresh the admin, and create an homepage (permalink = "/")
+
+And you should good to go!
+
 ---
 
 
@@ -148,29 +157,12 @@ Either add a RELEASE_PLEASE_TOKEN secret to your repository, or delete the actio
 
 For remote/server deployment environments, see [environments/README.md](environments/README.md).
 
----
-
-## Docker vs Local Development
-
-- **Docker:** Easiest, consistent, production-like. Recommended for most users.
-- **Local:** For advanced devs. Start Directus via Docker or locally, run Nuxt frontend with Node/npm. See [frontend/README.md](frontend/README.md).
-
----
-
 
 ## Scripts & Automation
 
 - **Backup/restore:** See [scripts/README.md](scripts/README.md)
 - **Deployment:** See [docs/deployment.md](docs/deployment.md)
 - **Remote Environments (for server deployment):** See [environments/README.md](environments/README.md)
-
----
-
-## GitHub Actions
-
-- **Release Please:** Automated versioning/releases from Conventional Commits
-- **Docker Deploy:** Builds and pushes frontend Docker images to GitHub Packages
-- See workflow files in `.github/workflows/`
 
 ---
 
